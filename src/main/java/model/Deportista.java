@@ -1,0 +1,154 @@
+package model;
+
+import java.sql.Blob;
+import java.util.Objects;
+
+public class Deportista {
+    private int id_deportista;
+    private String nombre;
+    private SexCategory sexo; // Enum
+    private int peso;
+    private int altura;
+    private Blob foto;
+
+    public Deportista(int id_deportista, String nombre, char sexo, int peso, int altura, Blob foto) {
+        this.id_deportista = id_deportista;
+        this.nombre = nombre;
+        this.sexo = getSexCategory(sexo);
+        this.peso = peso;
+        this.altura = altura;
+        this.foto = foto;
+    }
+    public Deportista() {}
+
+    /**
+     * Enum de Sexo
+     */
+    public enum SexCategory {
+        MALE, FEMALE;
+    }
+    public SexCategory getSexCategory(char sex) {
+        if (sex == 'F') {
+            return SexCategory.FEMALE;
+        } else if (sex == 'M') {
+            return SexCategory.MALE;
+        }
+        return null;
+    }
+    public int getId_deportista() {
+        return id_deportista;
+    }
+
+    /**
+     * Setter para el id del deportista
+     *
+     * @param id_deportista nuevo id del deportista
+     */
+    public void setId_deportista(int id_deportista) {
+        this.id_deportista = id_deportista;
+    }
+
+    /**
+     * Getter para el nombre del deportista
+     *
+     * @return nombre del deportista
+     */
+    public String getNombre() {
+        return nombre;
+    }
+
+    /**
+     * Setter para el nombre del deportista
+     *
+     * @param nombre nuevo nombre del deportista
+     */
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    /**
+     * Getter para el sexo del deportista
+     *
+     * @return sexo del deportista
+     */
+    public SexCategory getSexo() {
+        return sexo;
+    }
+
+    /**
+     * Setter para el sexo del deportista
+     *
+     * @param sexo nuevo sexo del deportista
+     */
+    public void setSexo(SexCategory sexo) {
+        this.sexo = sexo;
+    }
+
+    /**
+     * Getter para el peso del deportista
+     *
+     * @return peso del deportista
+     */
+    public int getPeso() {
+        return peso;
+    }
+
+    /**
+     * Setter para el peso del deportista
+     *
+     * @param peso nuevo peso del deportista
+     */
+    public void setPeso(int peso) {
+        this.peso = peso;
+    }
+
+    /**
+     * Getter para la altura del deportista
+     *
+     * @return altura del deportista
+     */
+    public int getAltura() {
+        return altura;
+    }
+
+    /**
+     * Setter para la altura del deportista
+     *
+     * @param altura nueva alura del deportista
+     */
+    public void setAltura(int altura) {
+        this.altura = altura;
+    }
+
+    /**
+     * Getter para la foto del deportista
+     *
+     * @return foto del deportista
+     */
+    public Blob getFoto() {
+        return foto;
+    }
+
+    /**
+     * Setter para la foto del deportista
+     *
+     * @param foto nueva foto del deportista
+     */
+    public void setFoto(Blob foto) {
+        this.foto = foto;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Deportista that = (Deportista) o;
+        return id_deportista == that.id_deportista;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(id_deportista);
+    }
+
+}
