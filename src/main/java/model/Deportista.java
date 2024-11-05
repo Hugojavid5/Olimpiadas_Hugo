@@ -71,8 +71,11 @@ public class Deportista {
      *
      * @return sexo del deportista
      */
-    public SexCategory getSexo() {
-        return sexo;
+    public char getSexo() {
+        if (sexo.equals(SexCategory.FEMALE)) {
+            return 'F';
+        }
+        return 'M';
     }
 
     /**

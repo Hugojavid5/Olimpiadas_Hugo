@@ -92,7 +92,7 @@ public class DaoDeportista {
             String consulta = "UPDATE Deportista SET nombre = ?,sexo = ?,peso = ?,altura = ?,foto = ? WHERE id_deportista = ?";
             pstmt = connection.getConnection().prepareStatement(consulta);
             pstmt.setString(1, deportistaNuevo.getNombre());
-            pstmt.setString(2, deportistaNuevo.getSexo().toString());
+            pstmt.setString(2, deportistaNuevo.getSexo() + "");
             pstmt.setInt(3, deportistaNuevo.getPeso());
             pstmt.setInt(4, deportistaNuevo.getAltura());
             pstmt.setBlob(5, deportistaNuevo.getFoto());

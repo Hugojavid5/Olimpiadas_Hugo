@@ -1,8 +1,13 @@
 package BBDD;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.Properties;
 /**
  * Clase de conexión a la base de datos
@@ -16,11 +21,12 @@ public class ConexionBBDD {
      */
     public ConexionBBDD() throws SQLException {
         // los parametros de la conexion
+        Properties configuracion = getConfiguracion();
         Properties connConfig = new Properties();
-        connConfig.setProperty("user", "root");
-        connConfig.setProperty("password", "mypass");
+        connConfig.setProperty("user", configuracion.getProperty("user"));
+        connConfig.setProperty("password", configuracion.getProperty("password"));
         //la conexion en sí
-        connection = DriverManager.getConnection("jdbc:mariadb://127.0.0.1:33066/olimpiadas?serverTimezone=Europe/Madrid", connConfig);
+        connection = DriverManager.getConnection("jdbc:mariadb://" + configuracion.getProperty("address") + ":" + configuracion.getProperty("port") + "/" + configuracion.getProperty("database") + "?serverTimezone=Europe/Madrid", connConfig);
         connection.setAutoCommit(true);
         DatabaseMetaData databaseMetaData = connection.getMetaData();
         connection.setAutoCommit(true);
@@ -43,4 +49,25 @@ public class ConexionBBDD {
         connection.close();
         return connection;
     }
+    Properties configuracion = getConfiguracion();
+    public static Properties getConfiguracion() {
+        HashMap<String,String> map = new HashMap<String,String>();
+        File f = new File("configuracion.properties");
+        Properties properties;
+        try {
+            FileInputStream configFileReader=new FileInputStream(f);
+            properties = new Properties();
+            try {
+                properties.load(configFileReader);
+                configFileReader.close();
+            } catch (IOException e) {
+                System.out.println(e.getMessage());
+            }
+        } catch (FileNotFoundException e) {
+            System.out.println(e.getMessage());
+            throw new RuntimeException("configuracion.properties not found at config file path " + f.getPath());
+        }
+        return properties;
+    }
+
 }

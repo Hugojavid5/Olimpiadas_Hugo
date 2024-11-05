@@ -7,7 +7,8 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class OlimpiadasController implements Initializable {
-
+    @FXML
+    private ResourceBundle resources;
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 

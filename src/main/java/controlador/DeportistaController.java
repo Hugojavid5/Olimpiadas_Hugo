@@ -26,6 +26,10 @@ public class DeportistaController implements Initializable {
     @FXML
     private TextField txtPeso;
 
+    @FXML
+    private ResourceBundle resources;
+
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 

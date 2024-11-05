@@ -4,6 +4,9 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import Language.LanguageManager;
+import java.util.ResourceBundle;
+import  BBDD.ConexionBBDD;
 
 import java.io.IOException;
 
@@ -22,9 +25,12 @@ public class OlimpiadasApp extends Application {
      */
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(OlimpiadasApp.class.getResource("/fxml/Inicio.fxml"));
+        // Cargar el idioma
+        ResourceBundle bundle = LanguageManager.getInstance().getBundle();
+        // Lanzar aplicación
+        FXMLLoader fxmlLoader = new FXMLLoader(OlimpiadasApp.class.getResource("/fxml/Inicio.fxml"), bundle);
         Scene scene = new Scene(fxmlLoader.load());
-        stage.setTitle("Inicio");
+        stage.setTitle("Inicio - Olimpiadas");
         stage.setScene(scene);
         stage.show();
     }
