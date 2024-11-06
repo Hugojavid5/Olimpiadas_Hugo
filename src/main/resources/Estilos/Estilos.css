@@ -1,0 +1,22 @@
+* {
+    -fx-font-family: sans-serif;
+}
+.btnGuardar {
+    -fx-background-color: #fcd3d3;
+}
+.button {
+     -fx-font-family: sans-serif;
+     -fx-font-weight: bold;
+ }
+
+.btnEliminar {
+    -fx-background-color: #fcd3d3;
+.btnCerrar {
+    -fx-background-color: #fcd3d3;
+}
+.btnAccion {
+    -fx-background-color:  #fcd3d3;
+}
+.rojo {
+    -fx-text-fill: red;
+}
