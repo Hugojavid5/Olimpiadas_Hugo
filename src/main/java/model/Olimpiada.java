@@ -1,24 +1,26 @@
 package model;
+
 import java.util.Objects;
 
 /**
- * Clase Olimpiada
+ * Clase que representa una olimpiada con información sobre su identificador,
+ * nombre, año, temporada y ciudad anfitriona.
  */
 public class Olimpiada {
     private int id_olimpiada;
     private String nombre;
     private int anio;
-    private SeasonCategory temporada; // Enum
+    private SeasonCategory temporada; // Enum que representa la temporada
     private String ciudad;
 
     /**
-     * Constructor con parámetros olimpiada
+     * Constructor con parámetros para crear una instancia de Olimpiada.
      *
-     * @param id_olimpiada de la olimpiada
-     * @param nombre de la olimpiada
-     * @param anio de la olimpiada
-     * @param temporada de la olimpiada
-     * @param ciudad de la olimpiada
+     * @param id_olimpiada el identificador único de la olimpiada
+     * @param nombre el nombre de la olimpiada
+     * @param anio el año de la olimpiada
+     * @param temporada la temporada de la olimpiada (Winter o Summer)
+     * @param ciudad la ciudad anfitriona de la olimpiada
      */
     public Olimpiada(int id_olimpiada, String nombre, int anio, String temporada, String ciudad) {
         this.id_olimpiada = id_olimpiada;
@@ -29,22 +31,22 @@ public class Olimpiada {
     }
 
     /**
-     * Constructor vacío de olimpiada
+     * Constructor vacío para crear una instancia de Olimpiada sin inicializar atributos.
      */
     public Olimpiada() {}
 
     /**
-     * Enum de Temporada
+     * Enum que representa las posibles temporadas de una olimpiada: Invierno o Verano.
      */
     public enum SeasonCategory {
         WINTER, SUMMER;
     }
 
     /**
-     * Función que devuelve la temporada de las olimpiadas
+     * Devuelve la categoría de temporada basada en una cadena de entrada.
      *
-     * @param season temporada de las olimpiadas
-     * @return SeasonCategory o null
+     * @param season la temporada de la olimpiada en formato de cadena ("Winter" o "Summer")
+     * @return la categoría de temporada como {@link SeasonCategory} o null si la entrada no coincide
      */
     public SeasonCategory getSeasonCategory(String season) {
         if (season.equals("Winter")) {
@@ -56,63 +58,63 @@ public class Olimpiada {
     }
 
     /**
-     * Getter para el id de la olimpiada
+     * Obtiene el identificador de la olimpiada.
      *
-     * @return id de la olimpiada
+     * @return el id de la olimpiada
      */
     public int getId_olimpiada() {
         return id_olimpiada;
     }
 
     /**
-     * Setter para el id de la olimpiada
+     * Establece el identificador de la olimpiada.
      *
-     * @param id_olimpiada nuevo id de la olimpiada
+     * @param id_olimpiada el nuevo id de la olimpiada
      */
     public void setId_olimpiada(int id_olimpiada) {
         this.id_olimpiada = id_olimpiada;
     }
 
     /**
-     * Getter para el nombre de la olimpiada
+     * Obtiene el nombre de la olimpiada.
      *
-     * @return nombre de la olimpiada
+     * @return el nombre de la olimpiada
      */
     public String getNombre() {
         return nombre;
     }
 
     /**
-     * Setter para el nombre de la olimpiada
+     * Establece el nombre de la olimpiada.
      *
-     * @param nombre nuevo nombre de la olimpiada
+     * @param nombre el nuevo nombre de la olimpiada
      */
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
 
     /**
-     * Getter para el año de la olimpiada
+     * Obtiene el año en que se celebró la olimpiada.
      *
-     * @return año de la olimpiada
+     * @return el año de la olimpiada
      */
     public int getAnio() {
         return anio;
     }
 
     /**
-     * Setter para el año de la olimpiada
+     * Establece el año en que se celebró la olimpiada.
      *
-     * @param anio nuevo año de la olimpiada
+     * @param anio el nuevo año de la olimpiada
      */
     public void setAnio(int anio) {
         this.anio = anio;
     }
 
     /**
-     * Getter para la temporada de la olimpiada
+     * Obtiene la temporada de la olimpiada (invierno o verano).
      *
-     * @return temporada de la olimpiada
+     * @return una cadena que representa la temporada de la olimpiada ("Winter" o "Summer")
      */
     public String getTemporada() {
         if (temporada.equals(SeasonCategory.WINTER)) {
@@ -122,32 +124,39 @@ public class Olimpiada {
     }
 
     /**
-     * Setter para la temporada de la olimpiada
+     * Establece la temporada de la olimpiada.
      *
-     * @param temporada nueva temporada de la olimpiada
+     * @param temporada la nueva temporada de la olimpiada
      */
     public void setTemporada(SeasonCategory temporada) {
         this.temporada = temporada;
     }
 
     /**
-     * Getter para la ciudad de la olimpiada
+     * Obtiene la ciudad donde se celebró la olimpiada.
      *
-     * @return ciudad de la olimpiada
+     * @return la ciudad de la olimpiada
      */
     public String getCiudad() {
         return ciudad;
     }
 
     /**
-     * Setter para la ciudad de la olimpiada
+     * Establece la ciudad donde se celebró la olimpiada.
      *
-     * @param ciudad nueva ciudad de la olimpiada
+     * @param ciudad la nueva ciudad de la olimpiada
      */
     public void setCiudad(String ciudad) {
         this.ciudad = ciudad;
     }
 
+    /**
+     * Compara esta olimpiada con otro objeto para verificar si son iguales
+     * en base a su identificador único.
+     *
+     * @param o el objeto a comparar
+     * @return true si los objetos son iguales, de lo contrario false
+     */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -156,10 +165,21 @@ public class Olimpiada {
         return id_olimpiada == olimpiada.id_olimpiada;
     }
 
+    /**
+     * Genera un código hash para esta olimpiada en base a su identificador único.
+     *
+     * @return el código hash de la olimpiada
+     */
     @Override
     public int hashCode() {
         return Objects.hashCode(id_olimpiada);
     }
+
+    /**
+     * Retorna una representación en cadena de la olimpiada.
+     *
+     * @return el nombre de la olimpiada
+     */
     @Override
     public String toString() {
         return nombre;

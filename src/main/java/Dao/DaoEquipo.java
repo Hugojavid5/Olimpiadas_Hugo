@@ -9,14 +9,16 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 /**
- * Clase donde se ejecuta las consultas para la tabla Equipo
+ * Clase que contiene los métodos para ejecutar consultas a la base de datos para la tabla Equipo.
+ * Permite obtener, insertar, modificar, eliminar equipos y comprobar si un equipo es eliminable.
  */
 public class DaoEquipo {
+
     /**
-     * Metodo que busca una equipo por medio de su id
+     * Busca un equipo en la base de datos por su ID.
      *
-     * @param id id del equipo a buscar
-     * @return equipo o null
+     * @param id El ID del equipo que se desea buscar.
+     * @return El objeto Equipo correspondiente o null si no se encuentra.
      */
     public static Equipo getEquipo(int id) {
         ConexionBBDD connection;
@@ -42,14 +44,14 @@ public class DaoEquipo {
     }
 
     /**
-     * Metodo que carga los datos de la tabla Equipos y los devuelve para usarlos en un listado de equipos
+     * Carga todos los equipos desde la base de datos y devuelve una lista observable para usar en un TableView.
      *
-     * @return listado de equipos para cargar en un tableview
+     * @return Un ObservableList de objetos Equipo.
      */
     public static ObservableList<Equipo> cargarListado() {
         ConexionBBDD connection;
         ObservableList<Equipo> equipos = FXCollections.observableArrayList();
-        try{
+        try {
             connection = new ConexionBBDD();
             String consulta = "SELECT id_equipo,nombre,iniciales FROM Equipo";
             PreparedStatement pstmt = connection.getConnection().prepareStatement(consulta);
@@ -63,18 +65,18 @@ public class DaoEquipo {
             }
             rs.close();
             connection.closeConnection();
-        }catch (SQLException e) {
+        } catch (SQLException e) {
             System.err.println(e.getMessage());
         }
         return equipos;
     }
 
     /**
-     * Metodo que modifica los datos de una equipo en la BD
+     * Modifica los datos de un equipo en la base de datos.
      *
-     * @param equipo		Instancia del equipo con datos
-     * @param equipoNuevo Nuevos datos del equipo a modificar
-     * @return			true/false
+     * @param equipo El equipo a modificar, que contiene los datos antiguos.
+     * @param equipoNuevo Un objeto Equipo con los nuevos datos a actualizar.
+     * @return true si la actualización fue exitosa, false en caso contrario.
      */
     public static boolean modificar(Equipo equipo, Equipo equipoNuevo) {
         ConexionBBDD connection;
@@ -98,12 +100,12 @@ public class DaoEquipo {
     }
 
     /**
-     * Metodo que CREA un nuevo equipo en la BD
+     * Inserta un nuevo equipo en la base de datos.
      *
-     * @param equipo		Instancia del modelo equipo con datos nuevos
-     * @return			id/-1
+     * @param equipo El objeto Equipo que contiene los datos a insertar.
+     * @return El ID generado del nuevo equipo si la inserción fue exitosa, -1 en caso contrario.
      */
-    public  static int insertar(Equipo equipo) {
+    public static int insertar(Equipo equipo) {
         ConexionBBDD connection;
         PreparedStatement pstmt;
         try {
@@ -133,10 +135,10 @@ public class DaoEquipo {
     }
 
     /**
-     * Elimina una equipo en función del modelo Equipo que le hayamos pasado
+     * Elimina un equipo de la base de datos.
      *
-     * @param equipo Equipo a eliminar
-     * @return a boolean
+     * @param equipo El objeto Equipo a eliminar.
+     * @return true si la eliminación fue exitosa, false en caso contrario.
      */
     public static boolean eliminar(Equipo equipo) {
         ConexionBBDD connection;
@@ -156,6 +158,13 @@ public class DaoEquipo {
             return false;
         }
     }
+
+    /**
+     * Verifica si un equipo se puede eliminar. Un equipo solo es eliminable si no tiene participaciones asociadas.
+     *
+     * @param equipo El equipo a verificar.
+     * @return true si el equipo no tiene participaciones asociadas y puede ser eliminado, false en caso contrario.
+     */
     public static boolean esEliminable(Equipo equipo) {
         ConexionBBDD connection;
         try {
@@ -168,7 +177,7 @@ public class DaoEquipo {
                 int cont = rs.getInt("cont");
                 rs.close();
                 connection.closeConnection();
-                return (cont==0);
+                return (cont == 0);
             }
             rs.close();
             connection.closeConnection();

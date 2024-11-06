@@ -12,14 +12,17 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 /**
- * Clase donde se ejecuta las consultas para la tabla Evento
+ * Clase donde se ejecutan las consultas para la tabla Evento.
+ * Esta clase contiene métodos para buscar, cargar, modificar, insertar, eliminar
+ * y verificar la eliminación de eventos en la base de datos.
  */
 public class DaoEvento {
+
     /**
-     * Metodo que busca un evento por medio de su id
+     * Metodo que busca un evento por medio de su id.
      *
      * @param id id del evento a buscar
-     * @return evento o null
+     * @return evento o null si no se encuentra
      */
     public static Evento getEvento(int id) {
         ConexionBBDD connection;
@@ -37,7 +40,7 @@ public class DaoEvento {
                 Olimpiada olimpiada = DaoOlimpiada.getOlimpiada(id_olimpiada);
                 int id_deporte = rs.getInt("id_deporte");
                 Deporte deporte = DaoDeporte.getDeporte(id_deporte);
-                evento = new Evento(id_evento,nombre,olimpiada,deporte);
+                evento = new Evento(id_evento, nombre, olimpiada, deporte);
             }
             rs.close();
             connection.closeConnection();
@@ -48,14 +51,15 @@ public class DaoEvento {
     }
 
     /**
-     * Metodo que carga los datos de la tabla Eventos y los devuelve para usarlos en un listado de eventos
+     * Metodo que carga los datos de la tabla Eventos y los devuelve en un listado
+     * para usarlos en un TableView.
      *
-     * @return listado de eventos para cargar en un tableview
+     * @return listado de eventos
      */
     public static ObservableList<Evento> cargarListado() {
         ConexionBBDD connection;
         ObservableList<Evento> eventos = FXCollections.observableArrayList();
-        try{
+        try {
             connection = new ConexionBBDD();
             String consulta = "SELECT id_evento,nombre,id_olimpiada,id_deporte FROM Evento";
             PreparedStatement pstmt = connection.getConnection().prepareStatement(consulta);
@@ -67,23 +71,23 @@ public class DaoEvento {
                 Olimpiada olimpiada = DaoOlimpiada.getOlimpiada(id_olimpiada);
                 int id_deporte = rs.getInt("id_deporte");
                 Deporte deporte = DaoDeporte.getDeporte(id_deporte);
-                Evento evento = new Evento(id_evento,nombre,olimpiada,deporte);
+                Evento evento = new Evento(id_evento, nombre, olimpiada, deporte);
                 eventos.add(evento);
             }
             rs.close();
             connection.closeConnection();
-        }catch (SQLException e) {
+        } catch (SQLException e) {
             System.err.println(e.getMessage());
         }
         return eventos;
     }
 
     /**
-     * Metodo que modifica los datos de un evento en la BD
+     * Metodo que modifica los datos de un evento en la BD.
      *
-     * @param evento		Instancia del evento con datos
+     * @param evento     Instancia del evento con datos actuales
      * @param eventoNuevo Nuevos datos del evento a modificar
-     * @return			true/false
+     * @return true si la actualización fue exitosa, false si hubo un error
      */
     public static boolean modificar(Evento evento, Evento eventoNuevo) {
         ConexionBBDD connection;
@@ -97,7 +101,6 @@ public class DaoEvento {
             pstmt.setInt(3, eventoNuevo.getDeporte().getId_deporte());
             pstmt.setInt(4, evento.getId_evento());
             int filasAfectadas = pstmt.executeUpdate();
-            System.out.println("Actualizado evento");
             pstmt.close();
             connection.closeConnection();
             return filasAfectadas > 0;
@@ -108,12 +111,12 @@ public class DaoEvento {
     }
 
     /**
-     * Metodo que CREA un nuevo evento en la BD
+     * Metodo que crea un nuevo evento en la BD.
      *
-     * @param evento		Instancia del modelo evento con datos nuevos
-     * @return			id/-1
+     * @param evento Instancia del modelo evento con datos nuevos
+     * @return id del nuevo evento o -1 si hubo un error
      */
-    public  static int insertar(Evento evento) {
+    public static int insertar(Evento evento) {
         ConexionBBDD connection;
         PreparedStatement pstmt;
         try {
@@ -124,7 +127,6 @@ public class DaoEvento {
             pstmt.setInt(2, evento.getOlimpiada().getId_olimpiada());
             pstmt.setInt(3, evento.getDeporte().getId_deporte());
             int filasAfectadas = pstmt.executeUpdate();
-            System.out.println("Nueva entrada en evento");
             if (filasAfectadas > 0) {
                 ResultSet rs = pstmt.getGeneratedKeys();
                 if (rs.next()) {
@@ -144,10 +146,10 @@ public class DaoEvento {
     }
 
     /**
-     * Elimina un evento en función del modelo Evento que le hayamos pasado
+     * Elimina un evento de la base de datos.
      *
      * @param evento Evento a eliminar
-     * @return a boolean
+     * @return true si la eliminación fue exitosa, false si hubo un error
      */
     public static boolean eliminar(Evento evento) {
         ConexionBBDD connection;
@@ -160,13 +162,20 @@ public class DaoEvento {
             int filasAfectadas = pstmt.executeUpdate();
             pstmt.close();
             connection.closeConnection();
-            System.out.println("Eliminado con éxito");
             return filasAfectadas > 0;
         } catch (SQLException e) {
             System.err.println(e.getMessage());
             return false;
         }
     }
+
+    /**
+     * Verifica si un evento puede ser eliminado de la base de datos.
+     * Un evento no puede ser eliminado si tiene participaciones asociadas.
+     *
+     * @param evento Evento a verificar
+     * @return true si el evento puede ser eliminado, false si tiene participaciones asociadas
+     */
     public static boolean esEliminable(Evento evento) {
         ConexionBBDD connection;
         try {
@@ -179,7 +188,7 @@ public class DaoEvento {
                 int cont = rs.getInt("cont");
                 rs.close();
                 connection.closeConnection();
-                return (cont==0);
+                return cont == 0;
             }
             rs.close();
             connection.closeConnection();

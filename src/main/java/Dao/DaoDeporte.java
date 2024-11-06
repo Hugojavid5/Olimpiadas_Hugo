@@ -9,14 +9,15 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 /**
- * Clase donde se ejecuta las consultas para la tabla Deporte
+ * Clase donde se ejecutan las consultas para la tabla Deporte.
  */
 public class DaoDeporte {
+
     /**
-     * Metodo que busca una deporte por medio de su id
+     * Método que busca un deporte por medio de su id.
      *
-     * @param id id del deporte a buscar
-     * @return deporte o null
+     * @param id El id del deporte a buscar.
+     * @return El objeto Deporte con los datos correspondientes o null si no se encuentra.
      */
     public static Deporte getDeporte(int id) {
         ConexionBBDD connection;
@@ -30,7 +31,7 @@ public class DaoDeporte {
             if (rs.next()) {
                 int id_deporte = rs.getInt("id_deporte");
                 String nombre = rs.getString("nombre");
-                deporte = new Deporte(id_deporte,nombre);
+                deporte = new Deporte(id_deporte, nombre);
             }
             rs.close();
             connection.closeConnection();
@@ -41,14 +42,15 @@ public class DaoDeporte {
     }
 
     /**
-     * Metodo que carga los datos de la tabla Deportes y los devuelve para usarlos en un listado de deportes
+     * Método que carga los datos de la tabla Deporte y los devuelve como una lista.
+     * Los datos se utilizan para cargar en un TableView en la interfaz gráfica.
      *
-     * @return listado de deportes para cargar en un tableview
+     * @return Un ObservableList de deportes para cargar en un TableView.
      */
     public static ObservableList<Deporte> cargarListado() {
         ConexionBBDD connection;
         ObservableList<Deporte> deportes = FXCollections.observableArrayList();
-        try{
+        try {
             connection = new ConexionBBDD();
             String consulta = "SELECT id_deporte,nombre FROM Deporte";
             PreparedStatement pstmt = connection.getConnection().prepareStatement(consulta);
@@ -56,23 +58,23 @@ public class DaoDeporte {
             while (rs.next()) {
                 int id_deporte = rs.getInt("id_deporte");
                 String nombre = rs.getString("nombre");
-                Deporte deporte = new Deporte(id_deporte,nombre);
+                Deporte deporte = new Deporte(id_deporte, nombre);
                 deportes.add(deporte);
             }
             rs.close();
             connection.closeConnection();
-        }catch (SQLException e) {
+        } catch (SQLException e) {
             System.err.println(e.getMessage());
         }
         return deportes;
     }
 
     /**
-     * Metodo que modifica los datos de una deporte en la BD
+     * Método que modifica los datos de un deporte en la base de datos.
      *
-     * @param deporte		Instancia de la deporte con datos
-     * @param deporteNuevo Nuevos datos del deporte a modificar
-     * @return			true/false
+     * @param deporte El deporte con los datos actuales.
+     * @param deporteNuevo El deporte con los nuevos datos a modificar.
+     * @return true si la actualización fue exitosa, false si ocurrió un error.
      */
     public static boolean modificar(Deporte deporte, Deporte deporteNuevo) {
         ConexionBBDD connection;
@@ -95,12 +97,12 @@ public class DaoDeporte {
     }
 
     /**
-     * Metodo que CREA un nuevo deporte en la BD
+     * Método que crea un nuevo deporte en la base de datos.
      *
-     * @param deporte		Instancia del modelo deporte con datos nuevos
-     * @return			id/-1
+     * @param deporte El objeto Deporte con los datos a insertar.
+     * @return El id del nuevo deporte insertado, o -1 si ocurrió un error.
      */
-    public  static int insertar(Deporte deporte) {
+    public static int insertar(Deporte deporte) {
         ConexionBBDD connection;
         PreparedStatement pstmt;
         try {
@@ -129,10 +131,10 @@ public class DaoDeporte {
     }
 
     /**
-     * Elimina un deporte en función del modelo Deporte que le hayamos pasado
+     * Método que elimina un deporte de la base de datos utilizando el modelo Deporte.
      *
-     * @param deporte Deporte a eliminar
-     * @return a boolean
+     * @param deporte El deporte a eliminar.
+     * @return true si el deporte fue eliminado con éxito, false si ocurrió un error.
      */
     public static boolean eliminar(Deporte deporte) {
         ConexionBBDD connection;
@@ -151,8 +153,14 @@ public class DaoDeporte {
             System.err.println(e.getMessage());
             return false;
         }
-
     }
+
+    /**
+     * Método que verifica si un deporte es eliminable, es decir, si no tiene eventos asociados.
+     *
+     * @param deporte El deporte a comprobar.
+     * @return true si el deporte puede eliminarse (sin eventos asociados), false en caso contrario.
+     */
     public static boolean esEliminable(Deporte deporte) {
         ConexionBBDD connection;
         try {
@@ -165,7 +173,7 @@ public class DaoDeporte {
                 int cont = rs.getInt("cont");
                 rs.close();
                 connection.closeConnection();
-                return (cont==0);
+                return (cont == 0);
             }
             rs.close();
             connection.closeConnection();
@@ -174,5 +182,4 @@ public class DaoDeporte {
         }
         return false;
     }
-
 }

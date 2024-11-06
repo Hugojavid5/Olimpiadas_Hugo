@@ -12,24 +12,34 @@ import java.util.Properties;
 import java.util.ResourceBundle;
 
 /**
- * Clase que se encarga de manejar los idiomas
+ * Clase que se encarga de manejar los idiomas en la aplicación. Proporciona métodos para
+ * cargar el archivo de propiedades de idioma y establecer el idioma actual.
  */
 public class LanguageManager {
     private static LanguageManager instance;
     private Locale locale = new Locale.Builder().setLanguage(LanguageManager.getLanguage()).build();
     private ResourceBundle bundle;
+
     /**
-     * Constructor de la clase que carga el bundle
+     * Constructor privado de la clase que carga el recurso de idioma (bundle).
+     * Utilizado en el patrón Singleton para asegurar una única instancia de la clase.
      */
     private LanguageManager() {
         loadResourceBundle();
     }
+
+    /**
+     * Obtiene el idioma configurado en el archivo de propiedades "lang.properties".
+     *
+     * @return el código de idioma configurado, obtenido del archivo de propiedades.
+     * @throws RuntimeException si el archivo de propiedades no se encuentra.
+     */
     public static String getLanguage() {
-        HashMap<String,String> map = new HashMap<String,String>();
+        HashMap<String, String> map = new HashMap<>();
         File f = new File("lang.properties");
         Properties properties;
         try {
-            FileInputStream configFileReader=new FileInputStream(f);
+            FileInputStream configFileReader = new FileInputStream(f);
             properties = new Properties();
             try {
                 properties.load(configFileReader);
@@ -43,10 +53,11 @@ public class LanguageManager {
         }
         return properties.getProperty("language");
     }
+
     /**
-     * Crea una instancia de LanguageManager y la devuelve
+     * Crea y devuelve la instancia única de LanguageManager.
      *
-     * @return instancia de LanguageManager
+     * @return la instancia de LanguageManager
      */
     public static LanguageManager getInstance() {
         if (instance == null) {
@@ -54,33 +65,37 @@ public class LanguageManager {
         }
         return instance;
     }
+
     /**
-     * Función que carga el bundle
+     * Carga el recurso de idioma (bundle) en función del idioma configurado en locale.
      */
     private void loadResourceBundle() {
         bundle = ResourceBundle.getBundle("languages/lang", locale);
     }
+
     /**
-     * Setter de locale
+     * Establece un nuevo valor para locale y recarga el recurso de idioma en base a este.
      *
-     * @param locale nuevo
+     * @param locale el nuevo objeto Locale a establecer
      */
     public void setLocale(Locale locale) {
         this.locale = locale;
         loadResourceBundle();
     }
+
     /**
-     * Getter de bundle
+     * Obtiene el recurso de idioma actual.
      *
-     * @return bundle
+     * @return el ResourceBundle que contiene los textos en el idioma configurado
      */
     public ResourceBundle getBundle() {
         return bundle;
     }
+
     /**
-     * Getter de locale
+     * Obtiene el objeto Locale actual.
      *
-     * @return locale
+     * @return el objeto Locale configurado
      */
     public Locale getLocale() {
         return locale;

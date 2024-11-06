@@ -1,4 +1,5 @@
 package BBDD;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -9,53 +10,72 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Properties;
+
 /**
- * Clase de conexión a la base de datos
+ * Clase de conexión a la base de datos.
+ * Esta clase establece y gestiona la conexión con la base de datos utilizando los parámetros definidos en un archivo de configuración.
  */
 public class ConexionBBDD {
     private final Connection connection;
+
     /**
-     * Es el constructor que se llama al crear un objeto de esta clase, lanzado la conexión
+     * Constructor de la clase que establece la conexión a la base de datos.
+     * Utiliza los parámetros de configuración leídos desde el archivo "configuracion.properties".
      *
-     * @throws java.sql.SQLException Hay que controlar errores de SQL
+     * @throws SQLException Si ocurre un error al intentar conectar a la base de datos.
      */
     public ConexionBBDD() throws SQLException {
-        // los parametros de la conexion
+        // Los parámetros de la conexión
         Properties configuracion = getConfiguracion();
         Properties connConfig = new Properties();
         connConfig.setProperty("user", configuracion.getProperty("user"));
         connConfig.setProperty("password", configuracion.getProperty("password"));
-        //la conexion en sí
+
+        // La conexión en sí
         connection = DriverManager.getConnection("jdbc:mariadb://" + configuracion.getProperty("address") + ":" + configuracion.getProperty("port") + "/" + configuracion.getProperty("database") + "?serverTimezone=Europe/Madrid", connConfig);
         connection.setAutoCommit(true);
+
+        // Obtenemos los metadatos de la base de datos (aunque no se usen en este momento)
         DatabaseMetaData databaseMetaData = connection.getMetaData();
         connection.setAutoCommit(true);
     }
+
     /**
-     * Esta clase devuelve la conexión creada
+     * Obtiene la conexión a la base de datos.
      *
-     * @return una conexión a la BBDD
+     * @return La conexión establecida a la base de datos.
      */
     public Connection getConnection() {
         return connection;
     }
+
     /**
-     * Metodo de cerrar la conexion con la base de datos
+     * Cierra la conexión a la base de datos.
      *
      * @return La conexión cerrada.
-     * @throws java.sql.SQLException Se lanza en caso de errores de SQL al cerrar la conexión.
+     * @throws SQLException Si ocurre un error al intentar cerrar la conexión.
      */
-    public Connection closeConnection() throws SQLException{
+    public Connection closeConnection() throws SQLException {
         connection.close();
         return connection;
     }
+
+    // Se inicializa la configuración
     Properties configuracion = getConfiguracion();
+
+    /**
+     * Lee y devuelve la configuración de la base de datos desde el archivo "configuracion.properties".
+     * Este archivo debe contener los parámetros necesarios para la conexión.
+     *
+     * @return Las propiedades de configuración necesarias para establecer la conexión a la base de datos.
+     * @throws RuntimeException Si no se encuentra el archivo de configuración.
+     */
     public static Properties getConfiguracion() {
-        HashMap<String,String> map = new HashMap<String,String>();
+        HashMap<String, String> map = new HashMap<String, String>();
         File f = new File("configuracion.properties");
         Properties properties;
         try {
-            FileInputStream configFileReader=new FileInputStream(f);
+            FileInputStream configFileReader = new FileInputStream(f);
             properties = new Properties();
             try {
                 properties.load(configFileReader);
@@ -69,5 +89,4 @@ public class ConexionBBDD {
         }
         return properties;
     }
-
 }

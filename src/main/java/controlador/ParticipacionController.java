@@ -1,4 +1,5 @@
 package controlador;
+
 import Dao.DaoDeportista;
 import Dao.DaoEquipo;
 import Dao.DaoEvento;
@@ -15,6 +16,9 @@ import javafx.stage.Stage;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+/**
+ * Controlador para gestionar la participación de un deportista en un evento.
+ */
 public class ParticipacionController implements Initializable {
     private Participacion participacion;
 
@@ -31,13 +35,28 @@ public class ParticipacionController implements Initializable {
     @FXML
     private ResourceBundle resources;
 
+    /**
+     * Constructor de la clase con un objeto de participación.
+     *
+     * @param participacion objeto de tipo Participacion
+     */
     public ParticipacionController(Participacion participacion) {
         this.participacion = participacion;
     }
+
+    /**
+     * Constructor de la clase sin parámetros.
+     */
     public ParticipacionController() {
         this.participacion = null;
     }
 
+    /**
+     * Inicializa los componentes de la ventana, carga las listas y prellena los campos si se pasa una participación existente.
+     *
+     * @param url la URL de la vista FXML
+     * @param resourceBundle el recurso de idioma de la aplicación
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         this.resources = resourceBundle;
@@ -52,8 +71,9 @@ public class ParticipacionController implements Initializable {
             txtMedalla.setText(participacion.getMedalla());
         }
     }
+
     /**
-     * Función que carga las listas
+     * Carga las listas de deportistas, equipos y eventos.
      */
     public void cargarListas() {
         ObservableList<Deportista> deportistas = DaoDeportista.cargarListado();
@@ -63,20 +83,22 @@ public class ParticipacionController implements Initializable {
         ObservableList<Equipo> equipos = DaoEquipo.cargarListado();
         lstEquipo.getItems().addAll(equipos);
     }
+
     /**
-     * Función que se ejecuta cuando se pulsa el botón "Cancelar". Cierra la ventana
+     * Función que se ejecuta cuando se pulsa el botón "Cancelar". Cierra la ventana.
      *
-     * @param event
+     * @param event el evento generado por el botón "Cancelar"
      */
     @FXML
     void cancelar(ActionEvent event) {
-        Stage stage = (Stage)txtEdad.getScene().getWindow();
+        Stage stage = (Stage) txtEdad.getScene().getWindow();
         stage.close();
     }
+
     /**
-     * Función que se ejecuta cuando se pulsa el botón "Guardar". Válida y procesa los datos
+     * Función que se ejecuta cuando se pulsa el botón "Guardar". Valida y guarda los datos de la participación.
      *
-     * @param event
+     * @param event el evento generado por el botón "Guardar"
      */
     @FXML
     void guardar(ActionEvent event) {
@@ -93,7 +115,7 @@ public class ParticipacionController implements Initializable {
             if (this.participacion == null) {
                 if (DaoParticipacion.insertar(nuevo)) {
                     confirmacion(resources.getString("save.participation"));
-                    Stage stage = (Stage)txtEdad.getScene().getWindow();
+                    Stage stage = (Stage) txtEdad.getScene().getWindow();
                     stage.close();
                 } else {
                     alerta(resources.getString("save.fail"));
@@ -101,7 +123,7 @@ public class ParticipacionController implements Initializable {
             } else {
                 if (DaoParticipacion.modificar(participacion, nuevo)) {
                     confirmacion(resources.getString("update.participation"));
-                    Stage stage = (Stage)txtEdad.getScene().getWindow();
+                    Stage stage = (Stage) txtEdad.getScene().getWindow();
                     stage.close();
                 } else {
                     alerta(resources.getString("save.fail"));
@@ -109,10 +131,11 @@ public class ParticipacionController implements Initializable {
             }
         }
     }
+
     /**
-     * Válida los datos del formulario
+     * Valida los datos ingresados en los campos de la ventana.
      *
-     * @return string con posibles errores
+     * @return un string con los mensajes de error de validación, o un string vacío si no hay errores
      */
     public String validar() {
         String error = "";
@@ -144,10 +167,11 @@ public class ParticipacionController implements Initializable {
         return error;
     }
 
-
-
-
-
+    /**
+     * Muestra una alerta con el mensaje de error.
+     *
+     * @param texto el texto a mostrar en la alerta
+     */
     public void alerta(String texto) {
         Alert alerta = new Alert(Alert.AlertType.ERROR);
         alerta.setHeaderText(null);
@@ -155,10 +179,11 @@ public class ParticipacionController implements Initializable {
         alerta.setContentText(texto);
         alerta.showAndWait();
     }
+
     /**
-     * Función que muestra un mensaje de confirmación al usuario
+     * Muestra una alerta de confirmación con el mensaje proporcionado.
      *
-     * @param texto contenido del mensaje
+     * @param texto el contenido del mensaje de confirmación
      */
     public void confirmacion(String texto) {
         Alert alerta = new Alert(Alert.AlertType.INFORMATION);
@@ -167,5 +192,4 @@ public class ParticipacionController implements Initializable {
         alerta.setContentText(texto);
         alerta.showAndWait();
     }
-
 }

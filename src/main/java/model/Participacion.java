@@ -1,7 +1,8 @@
 package model;
 
 /**
- * Clase Participación
+ * Clase que representa la participación de un deportista en un evento,
+ * asociada a un equipo y con información sobre su edad y medalla obtenida.
  */
 public class Participacion {
     private Deportista deportista;
@@ -11,13 +12,13 @@ public class Participacion {
     private String medalla;
 
     /**
-     * Constructor con parámetros participación
+     * Constructor con parámetros para crear una instancia de Participación.
      *
-     * @param deportista que participa
-     * @param evento de la participación
-     * @param equipo que participa
-     * @param edad del deportista
-     * @param medalla de la participación
+     * @param deportista el deportista que participa
+     * @param evento el evento en el que participa
+     * @param equipo el equipo al que pertenece el deportista
+     * @param edad la edad del deportista durante la participación
+     * @param medalla la medalla obtenida en la participación (si corresponde)
      */
     public Participacion(Deportista deportista, Evento evento, Equipo equipo, int edad, String medalla) {
         this.deportista = deportista;
@@ -28,98 +29,97 @@ public class Participacion {
     }
 
     /**
-     * Constructor vacío de participación
+     * Constructor vacío para crear una instancia de Participación sin inicializar atributos.
      */
     public Participacion() {}
 
     /**
-     * Getter para el deportista que participa
+     * Obtiene el deportista que participa en el evento.
      *
-     * @return deportista
+     * @return el deportista
      */
     public Deportista getDeportista() {
         return deportista;
     }
 
     /**
-     * Setter para el deportista que participa
+     * Establece el deportista que participa en el evento.
      *
-     * @param deportista nuevo deportista que participa
+     * @param deportista el nuevo deportista que participa
      */
     public void setDeportista(Deportista deportista) {
         this.deportista = deportista;
     }
 
     /**
-     * Getter para el evento de la participación
+     * Obtiene el evento de la participación.
      *
-     * @return evento
+     * @return el evento
      */
     public Evento getEvento() {
         return evento;
     }
 
     /**
-     * Setter para el evento de la participación
+     * Establece el evento de la participación.
      *
-     * @param evento nuevo evento de la participación
+     * @param evento el nuevo evento de la participación
      */
     public void setEvento(Evento evento) {
         this.evento = evento;
     }
 
     /**
-     * Getter para el equipo que participa
+     * Obtiene el equipo al que pertenece el deportista.
      *
-     * @return equipo
+     * @return el equipo
      */
     public Equipo getEquipo() {
         return equipo;
     }
 
     /**
-     * Setter para el equipo que participa
+     * Establece el equipo al que pertenece el deportista.
      *
-     * @param equipo nuevo equipo que participa
+     * @param equipo el nuevo equipo
      */
     public void setEquipo(Equipo equipo) {
         this.equipo = equipo;
     }
 
     /**
-     * Getter para la edad del deportista
+     * Obtiene la edad del deportista en el momento de la participación.
      *
-     * @return edad
+     * @return la edad
      */
     public int getEdad() {
         return edad;
     }
 
     /**
-     * Setter para la edad del deportista
+     * Establece la edad del deportista en el momento de la participación.
      *
-     * @param edad nueva edad del deportista
+     * @param edad la nueva edad del deportista
      */
     public void setEdad(int edad) {
         this.edad = edad;
     }
 
     /**
-     * Getter para la medalla de la participación
+     * Obtiene la medalla obtenida en la participación (si corresponde).
      *
-     * @return medalla
+     * @return la medalla
      */
     public String getMedalla() {
         return medalla;
     }
 
     /**
-     * Setter para la medalla de la participación
+     * Establece la medalla obtenida en la participación.
      *
-     * @param medalla nueva medalla de la participación
+     * @param medalla la nueva medalla obtenida
      */
     public void setMedalla(String medalla) {
         this.medalla = medalla;
     }
-
 }

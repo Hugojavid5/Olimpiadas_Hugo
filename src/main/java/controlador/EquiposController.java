@@ -18,25 +18,30 @@ public class EquiposController implements Initializable {
     private Equipo equipo;
     private Equipo crear;
 
-
     @FXML
     private Button btnEliminar;
 
     @FXML
     private Label lblDelete;
+
     @FXML
     private ComboBox<Equipo> cbEquipo;
+
     @FXML
     private TextField txtIniciales;
+
     @FXML
     private TextField txtNombre;
+
     @FXML
     private ResourceBundle resources; // ResourceBundle injected automatically by FXML loader
+
     /**
-     * Función que se ejecuta cuando se inicia la ventana
+     * Función que se ejecuta cuando se inicia la ventana.
+     * Inicializa el ComboBox con los equipos existentes y configura el listener para el cambio de selección.
      *
-     * @param url
-     * @param resourceBundle
+     * @param url la URL del archivo FXML.
+     * @param resourceBundle el ResourceBundle para la internacionalización.
      */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -49,8 +54,10 @@ public class EquiposController implements Initializable {
         // Listener ComboBox
         cbEquipo.getSelectionModel().selectedItemProperty().addListener(this::cambioEquipo);
     }
+
     /**
-     * Función que carga los equipos de la base de datos al ComboBox
+     * Función que carga los equipos de la base de datos al ComboBox.
+     * Añade todos los equipos existentes, incluyendo una opción para crear un nuevo equipo.
      */
     public void cargarEquipos() {
         cbEquipo.getItems().clear();
@@ -61,11 +68,12 @@ public class EquiposController implements Initializable {
     }
 
     /**
-     * Listener del cambio del ComboBox
+     * Listener que se ejecuta cuando se cambia la selección en el ComboBox de equipos.
+     * Actualiza los campos de texto con la información del equipo seleccionado.
      *
-     * @param observable
-     * @param oldValue
-     * @param newValue
+     * @param observable el valor observado.
+     * @param oldValue el valor anterior.
+     * @param newValue el nuevo valor seleccionado.
      */
     public void cambioEquipo(ObservableValue<? extends Equipo> observable, Equipo oldValue, Equipo newValue) {
         if (newValue != null) {
@@ -89,15 +97,21 @@ public class EquiposController implements Initializable {
     }
 
     /**
-     * Función que se ejecuta cuando se pulsa el botón "Cancelar". Cierra la ventana
+     * Función que se ejecuta cuando se pulsa el botón "Cancelar". Cierra la ventana actual.
      *
-     * @param event
+     * @param event el evento de acción.
      */
     @FXML
     void cancelar(ActionEvent event) {
         Stage stage = (Stage)txtNombre.getScene().getWindow();
         stage.close();
     }
+
+    /**
+     * Función que se ejecuta cuando se pulsa el botón "Eliminar". Elimina el equipo seleccionado tras confirmar con el usuario.
+     *
+     * @param event el evento de acción.
+     */
     @FXML
     void eliminar(ActionEvent event) {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
@@ -117,9 +131,10 @@ public class EquiposController implements Initializable {
     }
 
     /**
-     * Función que se ejecuta cuando se pulsa el botón "Guardar". Válida y procesa los datos
+     * Función que se ejecuta cuando se pulsa el botón "Guardar". Valida los datos del formulario
+     * y procesa la información para crear o actualizar un equipo.
      *
-     * @param event
+     * @param event el evento de acción.
      */
     @FXML
     void guardar(ActionEvent event) {
@@ -158,10 +173,11 @@ public class EquiposController implements Initializable {
             }
         }
     }
+
     /**
-     * Función que muestra un mensaje de alerta al usuario
+     * Función que muestra un mensaje de alerta al usuario con el contenido proporcionado.
      *
-     * @param texto contenido de la alerta
+     * @param texto el contenido de la alerta.
      */
     public void alerta(String texto) {
         Alert alerta = new Alert(Alert.AlertType.ERROR);
@@ -172,9 +188,9 @@ public class EquiposController implements Initializable {
     }
 
     /**
-     * Función que muestra un mensaje de confirmación al usuario
+     * Función que muestra un mensaje de confirmación al usuario con el contenido proporcionado.
      *
-     * @param texto contenido del mensaje
+     * @param texto el contenido del mensaje.
      */
     public void confirmacion(String texto) {
         Alert alerta = new Alert(Alert.AlertType.INFORMATION);

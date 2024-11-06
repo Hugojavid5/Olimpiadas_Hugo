@@ -25,7 +25,6 @@ public class DeportistaController implements Initializable {
     private Deportista deportista;
     private Blob imagen;
 
-
     @FXML
     private ImageView foto;
     @FXML
@@ -46,7 +45,13 @@ public class DeportistaController implements Initializable {
     @FXML
     private ResourceBundle resources;
 
-
+    /**
+     * Inicializa el controlador. Si ya existe un deportista, se cargan sus datos en los campos.
+     * Si el deportista tiene una imagen, se muestra en el ImageView correspondiente.
+     *
+     * @param url URL de la vista FXML.
+     * @param resourceBundle Recursos para la internacionalización.
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         this.resources = resourceBundle;
@@ -75,6 +80,7 @@ public class DeportistaController implements Initializable {
             }
         }
     }
+
     /**
      * Maneja el evento de eliminación de la foto seleccionada.
      * Al invocar este método, la variable de imagen se establece en nulo
@@ -83,7 +89,6 @@ public class DeportistaController implements Initializable {
      *
      * @param event el evento que desencadena la acción de borrar la foto.
      */
-
     @FXML
     void borrarFoto(ActionEvent event) {
         imagen = null;
@@ -91,14 +96,33 @@ public class DeportistaController implements Initializable {
         btnFotoBorrar.setDisable(true);
     }
 
+    /**
+     * Maneja el evento de cancelación.
+     * Actualmente, no realiza ninguna acción.
+     *
+     * @param event el evento de cancelación.
+     */
     @FXML
     void cancelar(ActionEvent event) {
     }
+
+    /**
+     * Maneja el evento de eliminación del deportista. Cierra la ventana actual.
+     *
+     * @param event el evento de eliminación.
+     */
     @FXML
     void eliminar(ActionEvent event) {
-        Stage stage = (Stage)txtNombre.getScene().getWindow();
+        Stage stage = (Stage) txtNombre.getScene().getWindow();
         stage.close();
     }
+
+    /**
+     * Guarda los datos del deportista en la base de datos. Si es un nuevo deportista, lo inserta,
+     * y si es un deportista existente, lo actualiza. Si ocurre algún error, muestra un mensaje de alerta.
+     *
+     * @param event el evento de guardar.
+     */
     @FXML
     void guardar(ActionEvent event) {
         String error = validar();
@@ -121,13 +145,13 @@ public class DeportistaController implements Initializable {
                     alerta(resources.getString("save.fail"));
                 } else {
                     confirmacion(resources.getString("save.athlete"));
-                    Stage stage = (Stage)txtNombre.getScene().getWindow();
+                    Stage stage = (Stage) txtNombre.getScene().getWindow();
                     stage.close();
                 }
             } else {
-                if (DaoDeportista.modificar(this.deportista,nuevo)) {
+                if (DaoDeportista.modificar(this.deportista, nuevo)) {
                     confirmacion(resources.getString("update.athlete"));
-                    Stage stage = (Stage)txtNombre.getScene().getWindow();
+                    Stage stage = (Stage) txtNombre.getScene().getWindow();
                     stage.close();
                 } else {
                     alerta(resources.getString("save.fail"));
@@ -137,9 +161,10 @@ public class DeportistaController implements Initializable {
     }
 
     /**
-     * Válida los datos del formulario
+     * Valida los datos del formulario de deportista. Si algún dato está vacío o es incorrecto,
+     * se retorna un mensaje de error.
      *
-     * @return string con posibles errores
+     * @return un string con los posibles errores encontrados.
      */
     private String validar() {
         String error = "";
@@ -168,15 +193,17 @@ public class DeportistaController implements Initializable {
     }
 
     /**
-     * Función que se ejecuta cuando se pulsa el botón "Seleccionar". Abre un FileChooser para seleccionar una imagen
+     * Abre un FileChooser para seleccionar una imagen de perfil para el deportista. Si la imagen
+     * seleccionada tiene un tamaño mayor al permitido, muestra una alerta. Si la imagen es válida,
+     * la carga en el ImageView.
      *
-     * @param event
+     * @param event el evento de selección de imagen.
      */
     @FXML
     void seleccionImagen(ActionEvent event) {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle(resources.getString("athlete.photo.chooser"));
-        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Image Files","*.jpg", "*.jpeg","*.png"));
+        fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Image Files", "*.jpg", "*.jpeg", "*.png"));
         fileChooser.setInitialDirectory(new File("."));
         File file = fileChooser.showOpenDialog(null);
         try {
@@ -190,26 +217,34 @@ public class DeportistaController implements Initializable {
                 foto.setImage(new Image(imagen));
                 btnFotoBorrar.setDisable(false);
             }
-        } catch (IOException|NullPointerException e) {
+        } catch (IOException | NullPointerException e) {
             System.out.println("Imagen no seleccionada");
         } catch (SQLException e) {
             e.printStackTrace();
             alerta(resources.getString("athlete.photo.chooser.fail"));
         }
-
     }
+
+    /**
+     * Constructor con deportista existente. Inicializa el controlador con un deportista específico.
+     *
+     * @param deportista el deportista que se desea cargar.
+     */
     public DeportistaController(Deportista deportista) {
         this.deportista = deportista;
     }
 
+    /**
+     * Constructor sin deportista. Inicializa el controlador para un deportista nuevo.
+     */
     public DeportistaController() {
         this.deportista = null;
     }
 
     /**
-     * Función que muestra un mensaje de alerta al usuario
+     * Muestra una alerta de error al usuario.
      *
-     * @param texto contenido de la alerta
+     * @param texto el mensaje que se mostrará en la alerta.
      */
     public void alerta(String texto) {
         Alert alerta = new Alert(Alert.AlertType.ERROR);
@@ -218,10 +253,11 @@ public class DeportistaController implements Initializable {
         alerta.setContentText(texto);
         alerta.showAndWait();
     }
+
     /**
-     * Función que muestra un mensaje de confirmación al usuario
+     * Muestra un mensaje de confirmación al usuario.
      *
-     * @param texto contenido del mensaje
+     * @param texto el mensaje que se mostrará en la alerta.
      */
     public void confirmacion(String texto) {
         Alert alerta = new Alert(Alert.AlertType.INFORMATION);

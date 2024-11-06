@@ -14,7 +14,8 @@ import java.util.ResourceBundle;
 import Dao.DaoOlimpiada;
 
 /**
- * Clase que controla los eventos de la ventana olimpiadas
+ * Clase que controla los eventos de la ventana olimpiadas.
+ * Permite agregar, eliminar y modificar olimpiadas, así como seleccionar una olimpiada desde un ComboBox.
  */
 public class OlimpiadasController implements Initializable {
 
@@ -40,13 +41,14 @@ public class OlimpiadasController implements Initializable {
     @FXML
     private TextField txtNombre;
 
-
     private ResourceBundle resources; // ResourceBundle injected automatically by FXML loader
+
     /**
-     * Función que se ejecuta cuando se inicia la ventana
+     * Función que se ejecuta cuando se inicia la ventana.
+     * Inicializa los valores de los campos y carga las olimpiadas existentes.
      *
-     * @param url
-     * @param resourceBundle
+     * @param url URL del recurso FXML
+     * @param resourceBundle ResourceBundle que contiene los recursos de la interfaz
      */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -60,6 +62,10 @@ public class OlimpiadasController implements Initializable {
         cbOlimpiada.getSelectionModel().selectedItemProperty().addListener(this::cambioOlimpiada);
     }
 
+    /**
+     * Carga la lista de olimpiadas en el ComboBox.
+     * Añade una opción para crear una nueva olimpiada.
+     */
     public void cargarOlimpiadas() {
         cbOlimpiada.getItems().clear();
         cbOlimpiada.getItems().add(crear);
@@ -67,6 +73,15 @@ public class OlimpiadasController implements Initializable {
         cbOlimpiada.getItems().addAll(olimpiadas);
         cbOlimpiada.getSelectionModel().select(0);
     }
+
+    /**
+     * Cambio en la selección del ComboBox de olimpiadas.
+     * Actualiza los campos de texto y las opciones de temporada según la olimpiada seleccionada.
+     *
+     * @param observable Observable que contiene el valor de la selección actual
+     * @param oldValue Valor anterior de la selección
+     * @param newValue Nuevo valor de la selección
+     */
     public void cambioOlimpiada(ObservableValue<? extends Olimpiada> observable, Olimpiada oldValue, Olimpiada newValue) {
         if (newValue != null) {
             btnEliminar.setDisable(true);
@@ -99,12 +114,22 @@ public class OlimpiadasController implements Initializable {
         }
     }
 
+    /**
+     * Cierra la ventana actual sin realizar ninguna acción.
+     *
+     * @param event El evento de acción del botón de cancelar
+     */
     @FXML
     void cancelar(ActionEvent event) {
-        Stage stage = (Stage)txtNombre.getScene().getWindow();
+        Stage stage = (Stage) txtNombre.getScene().getWindow();
         stage.close();
     }
 
+    /**
+     * Elimina la olimpiada seleccionada después de pedir confirmación al usuario.
+     *
+     * @param event El evento de acción del botón de eliminar
+     */
     @FXML
     void eliminar(ActionEvent event) {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
@@ -122,6 +147,13 @@ public class OlimpiadasController implements Initializable {
             }
         }
     }
+
+    /**
+     * Guarda una nueva olimpiada o actualiza una existente.
+     * Valida los campos antes de realizar la acción.
+     *
+     * @param event El evento de acción del botón de guardar
+     */
     @FXML
     void guardar(ActionEvent event) {
         String error = validar();
@@ -155,6 +187,13 @@ public class OlimpiadasController implements Initializable {
             }
         }
     }
+
+    /**
+     * Valida los campos de la ventana de olimpiadas.
+     * Verifica que todos los campos necesarios estén completos y que el año sea un número válido.
+     *
+     * @return Un mensaje de error si hay algún problema con la validación, de lo contrario, un string vacío.
+     */
     public String validar() {
         String error = "";
         if (txtNombre.getText().isEmpty()) {
@@ -174,6 +213,12 @@ public class OlimpiadasController implements Initializable {
         }
         return error;
     }
+
+    /**
+     * Muestra una alerta de error con el mensaje proporcionado.
+     *
+     * @param texto El texto que se mostrará en la alerta de error
+     */
     public void alerta(String texto) {
         Alert alerta = new Alert(Alert.AlertType.ERROR);
         alerta.setHeaderText(null);
@@ -183,9 +228,9 @@ public class OlimpiadasController implements Initializable {
     }
 
     /**
-     * Función que muestra un mensaje de confirmación al usuario
+     * Muestra un mensaje de confirmación al usuario.
      *
-     * @param texto contenido del mensaje
+     * @param texto El contenido del mensaje de confirmación
      */
     public void confirmacion(String texto) {
         Alert alerta = new Alert(Alert.AlertType.INFORMATION);
@@ -194,5 +239,4 @@ public class OlimpiadasController implements Initializable {
         alerta.setContentText(texto);
         alerta.showAndWait();
     }
-
 }

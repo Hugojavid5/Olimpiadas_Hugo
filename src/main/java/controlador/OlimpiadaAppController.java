@@ -370,7 +370,7 @@ public class OlimpiadaAppController implements Initializable {
     }
 
     /**
-     * Función que se ejecuta cuando se pulsa el menu item "Eliminar...". Elimina el objeto seleccionado
+     * Función que se ejecuta cuando se pulsa el menu item "Eliminar...". Elimina el objeto seleccionado.
      *
      * @param event
      */
