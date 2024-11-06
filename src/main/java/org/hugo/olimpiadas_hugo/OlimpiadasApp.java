@@ -32,7 +32,7 @@ public class OlimpiadasApp extends Application {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/Inicio.fxml"), bundle);
         stage.getIcons().add(new Image(getClass().getResourceAsStream("/Imagenes/olimpiadas.png")));
         Scene scene = new Scene(fxmlLoader.load());
-        stage.setTitle("Inicio - Olimpiadas");
+        stage.setTitle(bundle.getString("app.name"));
         stage.setScene(scene);
         stage.show();
     }

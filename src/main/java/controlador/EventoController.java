@@ -92,13 +92,13 @@ public class EventoController implements Initializable {
                 if (id == -1) {
                     alerta(resources.getString("save.fail"));
                 } else {
-                    confirmacion(resources.getString("save.event"));
+                    confirmacion(resources.getString("save.events"));
                     Stage stage = (Stage)txtNombre.getScene().getWindow();
                     stage.close();
                 }
             } else {
                 if (DaoEvento.modificar(evento, nuevo)) {
-                    confirmacion(resources.getString("update.event"));
+                    confirmacion(resources.getString("update.events"));
                     Stage stage = (Stage)txtNombre.getScene().getWindow();
                     stage.close();
                 } else {

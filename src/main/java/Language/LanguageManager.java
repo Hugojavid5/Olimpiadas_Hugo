@@ -2,7 +2,13 @@ package Language;
 
 import BBDD.ConexionBBDD;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.HashMap;
 import java.util.Locale;
+import java.util.Properties;
 import java.util.ResourceBundle;
 
 /**
@@ -10,13 +16,32 @@ import java.util.ResourceBundle;
  */
 public class LanguageManager {
     private static LanguageManager instance;
-    private Locale locale = new Locale.Builder().setLanguage(ConexionBBDD.getConfiguracion().getProperty("language")).build();
+    private Locale locale = new Locale.Builder().setLanguage(LanguageManager.getLanguage()).build();
     private ResourceBundle bundle;
     /**
      * Constructor de la clase que carga el bundle
      */
     private LanguageManager() {
         loadResourceBundle();
+    }
+    public static String getLanguage() {
+        HashMap<String,String> map = new HashMap<String,String>();
+        File f = new File("lang.properties");
+        Properties properties;
+        try {
+            FileInputStream configFileReader=new FileInputStream(f);
+            properties = new Properties();
+            try {
+                properties.load(configFileReader);
+                configFileReader.close();
+            } catch (IOException e) {
+                System.out.println(e.getMessage());
+            }
+        } catch (FileNotFoundException e) {
+            System.out.println(e.getMessage());
+            throw new RuntimeException("lang.properties not found at config file path " + f.getPath());
+        }
+        return properties.getProperty("language");
     }
     /**
      * Crea una instancia de LanguageManager y la devuelve

@@ -103,7 +103,7 @@ public class EquiposController implements Initializable {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.initOwner(txtNombre.getScene().getWindow());
         alert.setHeaderText(null);
-        alert.setTitle("Confirmación");
+        alert.setTitle(resources.getString("window.confirm"));
         alert.setContentText(resources.getString("delete.teams.prompt"));
         Optional<ButtonType> result = alert.showAndWait();
         if (result.get() == ButtonType.OK) {

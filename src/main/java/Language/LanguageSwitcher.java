@@ -32,6 +32,7 @@ public class LanguageSwitcher {
             // Reload the FXML with the new ResourceBundle
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/Inicio.fxml"), bundle);
             Parent root = loader.load();
+            stage.setTitle(bundle.getString("app.name"));
             // Update the scene with the new root (new language)
             stage.getScene().setRoot(root);
         } catch (Exception e) {

@@ -65,9 +65,8 @@ public class DeportistaController implements Initializable {
             if (deportista.getFoto() != null) {
                 System.out.println("Has image");
                 this.imagen = deportista.getFoto();
-                InputStream imagen = null;
                 try {
-                    imagen = deportista.getFoto().getBinaryStream();
+                    InputStream imagen = deportista.getFoto().getBinaryStream();
                     foto.setImage(new Image(imagen));
                 } catch (SQLException e) {
                     throw new RuntimeException(e);
@@ -76,6 +75,14 @@ public class DeportistaController implements Initializable {
             }
         }
     }
+    /**
+     * Maneja el evento de eliminación de la foto seleccionada.
+     * Al invocar este método, la variable de imagen se establece en nulo
+     * y se reemplaza la imagen actual por una imagen predeterminada del recurso.
+     * También desactiva el botón de eliminación de la foto.
+     *
+     * @param event el evento que desencadena la acción de borrar la foto.
+     */
 
     @FXML
     void borrarFoto(ActionEvent event) {
@@ -176,12 +183,13 @@ public class DeportistaController implements Initializable {
             Blob blob = DaoDeportista.convertFileToBlob(file);
             this.imagen = blob;
             foto.setImage(new Image(imagen));
-        } catch (IOException e) {
+            btnFotoBorrar.setDisable(false);
+        } catch (IOException|NullPointerException e) {
             System.out.println("Imagen no seleccionada");
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
+            alerta(resources.getString("athlete.photo.chooser.fail"));
         }
-        btnFotoBorrar.setDisable(false);
 
     }
     public DeportistaController(Deportista deportista) {
