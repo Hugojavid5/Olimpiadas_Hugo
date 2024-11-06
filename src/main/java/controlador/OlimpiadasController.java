@@ -111,14 +111,14 @@ public class OlimpiadasController implements Initializable {
         alert.initOwner(txtNombre.getScene().getWindow());
         alert.setHeaderText(null);
         alert.setTitle("Confirmación");
-        alert.setContentText("¿Estás seguro que quieres eliminar esta olimpiada?");
+        alert.setContentText(resources.getString("delete.olympics.prompt"));
         Optional<ButtonType> result = alert.showAndWait();
         if (result.get() == ButtonType.OK) {
             if (DaoOlimpiada.eliminar(olimpiada)) {
-                confirmacion("Olimpiada eliminada correctamente");
+                confirmacion(resources.getString("delete.olympics.success"));
                 cargarOlimpiadas();
             } else {
-                alerta("Ha habido un error eliminando esa olimpiada. Por favor vuelva a intentarlo");
+                alerta(resources.getString("delete.olympics.fail"));
             }
         }
     }
@@ -140,17 +140,17 @@ public class OlimpiadasController implements Initializable {
             if (this.olimpiada == null) {
                 int id = DaoOlimpiada.insertar(nuevo);
                 if (id == -1) {
-                    alerta("Ha habido un error almacenando los datos. Por favor vuelva a intentarlo");
+                    alerta(resources.getString("save.fail"));
                 } else {
-                    confirmacion("Olimpiada creada correctamente");
+                    confirmacion(resources.getString("save.olympics"));
                     cargarOlimpiadas();
                 }
             } else {
                 if (DaoOlimpiada.modificar(this.olimpiada, nuevo)) {
-                    confirmacion("Olimpiada actualizada correctamente");
+                    confirmacion(resources.getString("update.olympics"));
                     cargarOlimpiadas();
                 } else {
-                    alerta("Ha habido un error almacenando los datos. Por favor vuelva a intentarlo");
+                    alerta(resources.getString("save.fail"));
                 }
             }
         }
@@ -158,19 +158,19 @@ public class OlimpiadasController implements Initializable {
     public String validar() {
         String error = "";
         if (txtNombre.getText().isEmpty()) {
-            error = "El campo nombre no puede estar vacío\n";
+            error = resources.getString("validate.olympics.name") + "\n";
         }
         if (txtAnio.getText().isEmpty()) {
-            error += "El campo año no puede estar vacío\n";
+            error += resources.getString("validate.olympics.year") + "\n";
         } else {
             try {
                 Integer.parseInt(txtAnio.getText());
             } catch (NumberFormatException e) {
-                error += "El campo año tiene que ser numérico\n";
+                error += resources.getString("validate.olympics.year.num") + "\n";
             }
         }
         if (txtCiudad.getText().isEmpty()) {
-            error += "El campo ciudad no puede estar vacío\n";
+            error += resources.getString("validate.olympics.city") + "\n";
         }
         return error;
     }

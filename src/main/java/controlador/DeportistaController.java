@@ -111,19 +111,19 @@ public class DeportistaController implements Initializable {
             if (this.deportista == null) {
                 int id = DaoDeportista.insertar(nuevo);
                 if (id == -1) {
-                    alerta("Ha habido un error almacenando los datos. Por favor vuelva a intentarlo");
+                    alerta(resources.getString("save.fail"));
                 } else {
-                    confirmacion("Añadido deportista correctamente");
+                    confirmacion(resources.getString("save.athlete"));
                     Stage stage = (Stage)txtNombre.getScene().getWindow();
                     stage.close();
                 }
             } else {
                 if (DaoDeportista.modificar(this.deportista,nuevo)) {
-                    confirmacion("Actualizado deportista correctamente");
+                    confirmacion(resources.getString("update.athlete"));
                     Stage stage = (Stage)txtNombre.getScene().getWindow();
                     stage.close();
                 } else {
-                    alerta("Ha habido un error almacenando los datos. Por favor vuelva a intentarlo");
+                    alerta(resources.getString("save.fail"));
                 }
             }
         }
@@ -137,24 +137,24 @@ public class DeportistaController implements Initializable {
     private String validar() {
         String error = "";
         if (txtNombre.getText().isEmpty()) {
-            error = "El campo nombre no puede estar vacío\n";
+            error = resources.getString("validate.athlete.name") + "\n";
         }
         if (txtPeso.getText().isEmpty()) {
-            error += "El campo peso no puede estar vacío\n";
+            error += resources.getString("validate.athlete.weight") + "\n";
         } else {
             try {
                 Integer.parseInt(txtPeso.getText());
             } catch (NumberFormatException e) {
-                error += "El campo peso tiene que ser numérico\n";
+                error += resources.getString("validate.athlete.weight.num") + "\n";
             }
         }
         if (txtAltura.getText().isEmpty()) {
-            error += "El campo altura no puede estar vacío\n";
+            error += resources.getString("validate.athlete.height") + "\n";
         } else {
             try {
                 Integer.parseInt(txtAltura.getText());
             } catch (NumberFormatException e) {
-                error += "El campo altura tiene que ser numérico\n";
+                error += resources.getString("validate.athlete.height.num") + "\n";
             }
         }
         return error;
@@ -168,7 +168,7 @@ public class DeportistaController implements Initializable {
     @FXML
     void seleccionImagen(ActionEvent event) {
         FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle("Selecciona una foto del deportista");
+        fileChooser.setTitle(resources.getString("athlete.photo.chooser"));
         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Image Files","*.jpg","*.png"));
         File file = fileChooser.showOpenDialog(null);
         try {

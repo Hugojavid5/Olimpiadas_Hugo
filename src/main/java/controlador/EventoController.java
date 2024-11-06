@@ -72,13 +72,13 @@ public class EventoController implements Initializable {
     void guardar(ActionEvent event) {
         String error = "";
         if (txtNombre.getText().isEmpty()) {
-            error = "El campo nombre no puede estar vacío\n";
+            error = resources.getString("validate.event.name") + "\n";
         }
-        if (lstOlimpiada.getSelectionModel().getSelectedItems() == null) {
-            error += "Una olimpiada de la lista tiene que estar seleccionada\n";
+        if (lstOlimpiada.getSelectionModel().getSelectedItem() == null) {
+            error += resources.getString("validate.event.olympic") + "\n";
         }
-        if (lstDeporte.getSelectionModel().getSelectedItems() == null) {
-            error += "Un deporte de la lista tiene que estar seleccionada\n";
+        if (lstDeporte.getSelectionModel().getSelectedItem() == null) {
+            error += resources.getString("validate.event.sport") + "\n";
         }
         if (!error.isEmpty()) {
             alerta(error);
@@ -90,19 +90,19 @@ public class EventoController implements Initializable {
             if (this.evento == null) {
                 int id = DaoEvento.insertar(nuevo);
                 if (id == -1) {
-                    alerta("Ha habido un error almacenando los datos. Por favor vuelva a intentarlo");
+                    alerta(resources.getString("save.fail"));
                 } else {
-                    confirmacion("Evento creado correctamente");
+                    confirmacion(resources.getString("save.event"));
                     Stage stage = (Stage)txtNombre.getScene().getWindow();
                     stage.close();
                 }
             } else {
                 if (DaoEvento.modificar(evento, nuevo)) {
-                    confirmacion("Evento actualizado correctamente");
+                    confirmacion(resources.getString("update.event"));
                     Stage stage = (Stage)txtNombre.getScene().getWindow();
                     stage.close();
                 } else {
-                    alerta("Ha habido un error almacenando los datos. Por favor vuelva a intentarlo");
+                    alerta(resources.getString("save.fail"));
                 }
             }
         }

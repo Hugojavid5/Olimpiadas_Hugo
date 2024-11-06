@@ -77,38 +77,38 @@ public class DeportesController implements Initializable {
         alert.initOwner(txtNombre.getScene().getWindow());
         alert.setHeaderText(null);
         alert.setTitle("Confirmación");
-        alert.setContentText("¿Estás seguro que quieres eliminar este deporte?");
+        alert.setContentText(resources.getString("delete.sports.prompt"));
         Optional<ButtonType> result = alert.showAndWait();
         if (result.get() == ButtonType.OK) {
             if (DaoDeporte.eliminar(deporte)) {
-                confirmacion("Deporte eliminado correctamente");
+                confirmacion(resources.getString("delete.sports.success"));
                 cargarDeportes();
             } else {
-                alerta("Ha habido un error eliminando ese deporte. Por favor vuelva a intentarlo");
+                alerta(resources.getString("delete.sports.fail"));
             }
         }
     }
     @FXML
     void guardar(ActionEvent event) {
         if (txtNombre.getText().isEmpty()) {
-            alerta("El campo nombre no puede estar vacío");
+            alerta(resources.getString("validate.sports.name"));
         } else {
             Deporte nuevo = new Deporte();
             nuevo.setNombre(txtNombre.getText());
             if (this.deporte == null) {
                 int id = DaoDeporte.insertar(nuevo);
                 if (id == -1) {
-                    alerta("Ha habido un error almacenando los datos. Por favor vuelva a intentarlo");
+                    alerta(resources.getString("save.fail"));
                 } else {
-                    confirmacion("Deporte añadido correctamente");
+                    confirmacion(resources.getString("save.sports"));
                     cargarDeportes();
                 }
             } else {
                 if (DaoDeporte.modificar(this.deporte, nuevo)) {
-                    confirmacion("Deporte actualizado correctamente");
+                    confirmacion(resources.getString("update.sports"));
                     cargarDeportes();
                 } else {
-                    alerta("Ha habido un error almacenando los datos. Por favor vuelva a intentarlo");
+                    alerta(resources.getString("save.fail"));
                 }
             }
         }

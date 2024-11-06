@@ -92,19 +92,19 @@ public class ParticipacionController implements Initializable {
             nuevo.setMedalla(txtMedalla.getText());
             if (this.participacion == null) {
                 if (DaoParticipacion.insertar(nuevo)) {
-                    confirmacion("Participación creada correctamente");
+                    confirmacion(resources.getString("save.participation"));
                     Stage stage = (Stage)txtEdad.getScene().getWindow();
                     stage.close();
                 } else {
-                    alerta("Ha habido un error almacenando los datos. Por favor vuelva a intentarlo");
+                    alerta(resources.getString("save.fail"));
                 }
             } else {
                 if (DaoParticipacion.modificar(participacion, nuevo)) {
-                    confirmacion("Participación actualizada correctamente");
+                    confirmacion(resources.getString("update.participation"));
                     Stage stage = (Stage)txtEdad.getScene().getWindow();
                     stage.close();
                 } else {
-                    alerta("Ha habido un error almacenando los datos. Por favor vuelva a intentarlo");
+                    alerta(resources.getString("save.fail"));
                 }
             }
         }
@@ -116,29 +116,29 @@ public class ParticipacionController implements Initializable {
      */
     public String validar() {
         String error = "";
-        if (lstDeportista.getSelectionModel().getSelectedItems() == null) {
-            error = "Un deportista de la lista tiene que estar seleccionada\n";
+        if (lstDeportista.getSelectionModel().getSelectedItem() == null) {
+            error = resources.getString("validate.participation.athlete") + "\n";
         }
-        if (lstEvento.getSelectionModel().getSelectedItems() == null) {
-            error += "Un evento de la lista tiene que estar seleccionada\n";
+        if (lstEvento.getSelectionModel().getSelectedItem() == null) {
+            error += resources.getString("validate.participation.event") + "\n";
         }
-        if (lstEquipo.getSelectionModel().getSelectedItems() == null) {
-            error += "Un equipo de la lista tiene que estar seleccionada\n";
+        if (lstEquipo.getSelectionModel().getSelectedItem() == null) {
+            error += resources.getString("validate.participation.team") + "\n";
         }
         if (txtEdad.getText().isEmpty()) {
-            error += "El campo edad no puede estar vacío\n";
+            error += resources.getString("validate.participation.age") + "\n";
         } else {
             try {
                 Integer.parseInt(txtEdad.getText());
             } catch (NumberFormatException e) {
-                error += "El campo edad tiene que ser numérico\n";
+                error += resources.getString("validate.participation.age.num") + "\n";
             }
         }
         if (txtMedalla.getText().isEmpty()) {
-            error += "El campo medalla no puede estar vacío\n";
+            error += resources.getString("validate.participation.medal") + "\n";
         } else {
             if (txtMedalla.getText().length() > 6) {
-                error += "El campo iniciales no puede ser mayor que 6 carácteres\n";
+                error += resources.getString("validate.participation.medal.num") + "\n";
             }
         }
         return error;

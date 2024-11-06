@@ -104,14 +104,14 @@ public class EquiposController implements Initializable {
         alert.initOwner(txtNombre.getScene().getWindow());
         alert.setHeaderText(null);
         alert.setTitle("Confirmación");
-        alert.setContentText("¿Estás seguro que quieres eliminar este equipo?");
+        alert.setContentText(resources.getString("delete.teams.prompt"));
         Optional<ButtonType> result = alert.showAndWait();
         if (result.get() == ButtonType.OK) {
             if (DaoEquipo.eliminar(equipo)) {
-                confirmacion("Equipo eliminado correctamente");
+                confirmacion(resources.getString("delete.teams.success"));
                 cargarEquipos();
             } else {
-                alerta("Ha habido un eliminado ese equipo. Por favor vuelva a intentarlo");
+                alerta(resources.getString("delete.teams.fail"));
             }
         }
     }
@@ -125,13 +125,13 @@ public class EquiposController implements Initializable {
     void guardar(ActionEvent event) {
         String error = "";
         if (txtNombre.getText().isEmpty()) {
-            error = "El campo nombre no puede estar vacío\n";
+            error = resources.getString("validate.teams.name") + "\n";
         }
         if (txtIniciales.getText().isEmpty()) {
-            error += "El campo iniciales no puede estar vacío\n";
+            error +=  resources.getString("validate.teams.noc") + "\n";
         } else {
             if (txtIniciales.getText().length() > 3) {
-                error += "El campo iniciales no puede ser mayor que 3 carácteres\n";
+                error +=  resources.getString("validate.teams.noc.num") +  "\n";
             }
         }
         if (!error.isEmpty()) {
@@ -143,17 +143,17 @@ public class EquiposController implements Initializable {
             if (this.equipo == null) {
                 int id = DaoEquipo.insertar(nuevo);
                 if (id == -1) {
-                    alerta("Ha habido un error almacenando los datos. Por favor vuelva a intentarlo");
+                    alerta(resources.getString("save.fail"));
                 } else {
-                    confirmacion("Equipo creado correctamente");
+                    confirmacion(resources.getString("save.teams"));
                     cargarEquipos();
                 }
             } else {
                 if (DaoEquipo.modificar(equipo, nuevo)) {
-                    confirmacion("Equipo actualizado correctamente");
+                    confirmacion(resources.getString("update.teams"));
                     cargarEquipos();
                 } else {
-                    alerta("Ha habido un error almacenando los datos. Por favor vuelva a intentarlo");
+                    alerta(resources.getString("save.fail"));
                 }
             }
         }
