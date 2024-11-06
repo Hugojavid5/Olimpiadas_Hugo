@@ -114,8 +114,11 @@ public class Olimpiada {
      *
      * @return temporada de la olimpiada
      */
-    public SeasonCategory getTemporada() {
-        return temporada;
+    public String getTemporada() {
+        if (temporada.equals(SeasonCategory.WINTER)) {
+            return "Winter";
+        }
+        return "Summer";
     }
 
     /**

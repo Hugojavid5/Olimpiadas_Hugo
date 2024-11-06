@@ -4,6 +4,7 @@ import BBDD.ConexionBBDD;
 import Dao.DaoDeportista;
 import Dao.DaoEvento;
 import Dao.DaoParticipacion;
+import Language.LanguageSwitcher;
 import controlador.DeportistaController;
 import controlador.EventoController;
 import controlador.ParticipacionController;

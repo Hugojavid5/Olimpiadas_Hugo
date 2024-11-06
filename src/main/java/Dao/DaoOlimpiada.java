@@ -118,8 +118,8 @@ public class DaoOlimpiada {
             String consulta = "INSERT INTO Olimpiada (nombre,anio,temporada,ciudad) VALUES (?,?,?,?) ";
             pstmt = connection.getConnection().prepareStatement(consulta, PreparedStatement.RETURN_GENERATED_KEYS);
             pstmt.setString(1, olimpiada.getNombre());
-            pstmt.setInt(3, olimpiada.getAnio());
-            pstmt.setString(2, olimpiada.getTemporada().toString());
+            pstmt.setInt(2, olimpiada.getAnio());
+            pstmt.setString(3, olimpiada.getTemporada().toString());
             pstmt.setString(4, olimpiada.getCiudad());
             int filasAfectadas = pstmt.executeUpdate();
             System.out.println("Nueva entrada en olimpiada");
@@ -164,5 +164,26 @@ public class DaoOlimpiada {
             System.err.println(e.getMessage());
             return false;
         }
+    }
+    public static boolean esEliminable(Olimpiada olimpiada) {
+        ConexionBBDD connection;
+        try {
+            connection = new ConexionBBDD();
+            String consulta = "SELECT count(*) as cont FROM Evento WHERE id_olimpiada = ?";
+            PreparedStatement pstmt = connection.getConnection().prepareStatement(consulta);
+            pstmt.setInt(1, olimpiada.getId_olimpiada());
+            ResultSet rs = pstmt.executeQuery();
+            if (rs.next()) {
+                int cont = rs.getInt("cont");
+                rs.close();
+                connection.closeConnection();
+                return (cont==0);
+            }
+            rs.close();
+            connection.closeConnection();
+        } catch (SQLException e) {
+            System.err.println(e.getMessage());
+        }
+        return false;
     }
 }

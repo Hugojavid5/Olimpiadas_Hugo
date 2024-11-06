@@ -156,4 +156,25 @@ public class DaoEquipo {
             return false;
         }
     }
+    public static boolean esEliminable(Equipo equipo) {
+        ConexionBBDD connection;
+        try {
+            connection = new ConexionBBDD();
+            String consulta = "SELECT count(*) as cont FROM Participacion WHERE id_equipo = ?";
+            PreparedStatement pstmt = connection.getConnection().prepareStatement(consulta);
+            pstmt.setInt(1, equipo.getId_equipo());
+            ResultSet rs = pstmt.executeQuery();
+            if (rs.next()) {
+                int cont = rs.getInt("cont");
+                rs.close();
+                connection.closeConnection();
+                return (cont==0);
+            }
+            rs.close();
+            connection.closeConnection();
+        } catch (SQLException e) {
+            System.err.println(e.getMessage());
+        }
+        return false;
+    }
 }

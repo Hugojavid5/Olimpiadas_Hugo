@@ -151,5 +151,28 @@ public class DaoDeporte {
             System.err.println(e.getMessage());
             return false;
         }
+
     }
+    public static boolean esEliminable(Deporte deporte) {
+        ConexionBBDD connection;
+        try {
+            connection = new ConexionBBDD();
+            String consulta = "SELECT count(*) as cont FROM Evento WHERE id_deporte = ?";
+            PreparedStatement pstmt = connection.getConnection().prepareStatement(consulta);
+            pstmt.setInt(1, deporte.getId_deporte());
+            ResultSet rs = pstmt.executeQuery();
+            if (rs.next()) {
+                int cont = rs.getInt("cont");
+                rs.close();
+                connection.closeConnection();
+                return (cont==0);
+            }
+            rs.close();
+            connection.closeConnection();
+        } catch (SQLException e) {
+            System.err.println(e.getMessage());
+        }
+        return false;
+    }
+
 }

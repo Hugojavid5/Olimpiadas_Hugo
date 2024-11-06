@@ -12,7 +12,8 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="300.0"  xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controlador.OlimpiadasController">
+<?import javafx.scene.control.Tooltip?>
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="300.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controlador.OlimpiadasController">
     <children>
         <FlowPane alignment="CENTER">
             <children>
@@ -40,15 +41,24 @@
             </rowConstraints>
             <children>
                 <Label text="%olympics.cb" />
-                <ComboBox fx:id="cbOlimpiada" maxWidth="1.7976931348623157E308" GridPane.columnIndex="1" />
+                <ComboBox fx:id="cbOlimpiada" maxWidth="1.7976931348623157E308" GridPane.columnIndex="1">
+                    <tooltip>
+                        <Tooltip text="%cb.new.tooltip" />
+                    </tooltip>
+                </ComboBox>
                 <Label text="%olympics.name" GridPane.rowIndex="1" />
                 <TextField fx:id="txtNombre" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                 <Label text="%olympics.year" GridPane.rowIndex="2" />
-                <TextField fx:id="txtAnio" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                <TextField fx:id="txtAnio" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                    <tooltip>
+                        <Tooltip text="%olympics.year.tooltip" />
+                    </tooltip>
+                </TextField>
+
                 <Label text="%olympics.season" GridPane.rowIndex="3" />
                 <Label text="%olympics.city" GridPane.rowIndex="4" />
                 <TextField fx:id="txtCiudad" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                <FlowPane hgap="10.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                <FlowPane alignment="CENTER_LEFT" hgap="10.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
                     <children>
                         <RadioButton fx:id="rbInvierno" mnemonicParsing="false" text="%olympics.season.winter">
                             <toggleGroup>
@@ -65,9 +75,17 @@
         </GridPane>
         <FlowPane alignment="CENTER" hgap="5.0">
             <children>
-                <Button defaultButton="true" mnemonicParsing="false" onAction="#guardar" text="%btn.save" />
-                <Button cancelButton="true" mnemonicParsing="false" onAction="#cancelar" text="%btn.cancel" />
-                <Button fx:id="btnEliminar" disable="true" mnemonicParsing="false" onAction="#eliminar" text="%btn.delete" />
+                <Button defaultButton="true" mnemonicParsing="false" onAction="#guardar" styleClass="btnGuardar" text="%btn.save" />
+                <Button fx:id="btnEliminar" disable="true" mnemonicParsing="false" onAction="#eliminar" styleClass="btnEliminar" text="%btn.delete" />
+                <Button cancelButton="true" mnemonicParsing="false" onAction="#cancelar" styleClass="btnCerrar" text="%btn.close" />
+            </children>
+            <VBox.margin>
+                <Insets top="5.0" />
+            </VBox.margin>
+        </FlowPane>
+        <FlowPane alignment="CENTER" columnHalignment="CENTER">
+            <children>
+                <Label fx:id="lblDelete" alignment="CENTER" contentDisplay="CENTER" maxWidth="280.0" minWidth="-Infinity" prefWidth="280.0" styleClass="rojo" text="%label.not_deletable" textAlignment="CENTER" visible="false" wrapText="true" />
             </children>
             <VBox.margin>
                 <Insets top="5.0" />

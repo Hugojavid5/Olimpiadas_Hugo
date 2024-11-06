@@ -15,9 +15,12 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.input.KeyCodeCombination?>
 <?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 
 
 <?import javafx.scene.control.RadioMenuItem?>
+<?import javafx.scene.control.Tooltip?>
 <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controlador.OlimpiadaAppController">
     <children>
         <MenuBar>
@@ -68,14 +71,22 @@
                 </Menu>
             </menus>
         </MenuBar>
-        <FlowPane alignment="CENTER">
+        <FlowPane alignment="CENTER" hgap="25.0">
             <children>
+                <ImageView fitHeight="150.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../Imagenes/olimpiadas.png" />
+                    </image>
+                </ImageView>
                 <Label alignment="CENTER" text="%main.title">
                     <font>
                         <Font size="24.0" />
                     </font>
                 </Label>
             </children>
+            <VBox.margin>
+                <Insets bottom="5.0" top="5.0" />
+            </VBox.margin>
         </FlowPane>
         <BorderPane>
             <left>
@@ -90,12 +101,18 @@
                             <HBox.margin>
                                 <Insets left="5.0" />
                             </HBox.margin>
+                            <tooltip>
+                                <Tooltip text="%cb.tooltip" />
+                            </tooltip>
                         </ComboBox>
                     </children>
                 </HBox>
             </left>
             <center>
-                <Button mnemonicParsing="false" onAction="#aniadir" text="%main.button.add" BorderPane.alignment="CENTER" />
+                <Button mnemonicParsing="false" onAction="#aniadir" text="%main.button.add" BorderPane.alignment="CENTER">
+                    <tooltip>
+                        <Tooltip text="%main.button.add.tooltip" />
+                    </tooltip></Button>
             </center>
             <right>
                 <HBox alignment="CENTER" BorderPane.alignment="CENTER">
@@ -109,6 +126,9 @@
                             <HBox.margin>
                                 <Insets left="5.0" />
                             </HBox.margin>
+                            <tooltip>
+                                <Tooltip text="%main.tooltip.filter" />
+                            </tooltip>
                         </TextField>
                     </children>
                 </HBox>
@@ -117,6 +137,10 @@
                 <Insets bottom="5.0" left="5.0" right="5.0" />
             </VBox.margin>
         </BorderPane>
-        <TableView fx:id="tabla" maxHeight="1.7976931348623157E308" VBox.vgrow="ALWAYS" />
+        <TableView fx:id="tabla" maxHeight="1.7976931348623157E308" VBox.vgrow="ALWAYS">
+            <VBox.margin>
+                <Insets bottom="5.0" left="5.0" right="5.0" />
+            </VBox.margin>
+        </TableView>
     </children>
 </VBox>

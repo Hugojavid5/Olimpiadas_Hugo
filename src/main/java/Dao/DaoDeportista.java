@@ -174,7 +174,7 @@ public class DaoDeportista {
         ConexionBBDD connection;
         try {
             connection = new ConexionBBDD();
-            String consulta = "SELECT count(*) as cont FROM Participacion WHERE id_deportista = ?";
+            String consulta = "INSERT INTO Deportista (nombre,sexo,peso,altura,foto) VALUES (?,?,?,?,?) ";
             PreparedStatement pstmt = connection.getConnection().prepareStatement(consulta);
             pstmt.setInt(1, deportista.getId_deportista());
             ResultSet rs = pstmt.executeQuery();
