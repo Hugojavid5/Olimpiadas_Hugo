@@ -153,5 +153,9 @@ public class Deportista {
     public int hashCode() {
         return Objects.hashCode(id_deportista);
     }
+    @Override
+    public String toString() {
+        return nombre;
+    }
 
 }

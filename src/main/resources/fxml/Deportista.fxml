@@ -16,7 +16,7 @@
     <children>
         <FlowPane alignment="CENTER" columnHalignment="CENTER">
             <children>
-                <Label text="%deportista.title">
+                <Label text="%athlete.title">
                     <font>
                         <Font size="24.0" />
                     </font>
@@ -35,10 +35,10 @@
                     <children>
                         <BorderPane>
                             <left>
-                                <Label alignment="CENTER" text="%deportista.photo" BorderPane.alignment="CENTER" />
+                                <Label alignment="CENTER" text="%athlete.photo" BorderPane.alignment="CENTER" />
                             </left>
                             <right>
-                                Button alignment="CENTER" mnemonicParsing="false" onAction="#seleccionImagen" text="%deportista.photo.btn" BorderPane.alignment="CENTER" />
+                                <Button alignment="CENTER" mnemonicParsing="false" onAction="#seleccionImagen" text="%athlete.photo.btn" BorderPane.alignment="CENTER" />
                             </right>
                             <VBox.margin>
                                 <Insets bottom="5.0" />
@@ -59,31 +59,31 @@
                 </VBox>
                 <VBox maxWidth="1.7976931348623157E308" HBox.hgrow="ALWAYS">
                     <children>
-                        <Label text="%deportista.name" />
+                        <Label text="%athlete.name" />
                         <TextField fx:id="txtNombre">
                             <VBox.margin>
                                 <Insets bottom="5.0" />
                             </VBox.margin>
                         </TextField>
-                        <Label text="%deportista.sex">
+                        <Label text="%athlete.sex">
                             <VBox.margin>
                                 <Insets top="5.0" />
                             </VBox.margin>
                         </Label>
                         <FlowPane hgap="10.0">
                             <children>
-                                <RadioButton fx:id="rbFemale" mnemonicParsing="false" selected="true" text="%deportista.sex.female">
+                                <RadioButton fx:id="rbFemale" mnemonicParsing="false" selected="true" text="%athlete.sex.female">
                                     <toggleGroup>
                                         <ToggleGroup fx:id="tgSexo" />
                                     </toggleGroup>
                                 </RadioButton>
-                                <RadioButton fx:id="rbMale" mnemonicParsing="false" text="%deportista.sex.male" toggleGroup="$tgSexo" />
+                                <RadioButton fx:id="rbMale" mnemonicParsing="false" text="%athlete.sex.male" toggleGroup="$tgSexo" />
                             </children>
                             <VBox.margin>
                                 <Insets bottom="5.0" />
                             </VBox.margin>
                         </FlowPane>
-                        <Label text="%deportista.weight">
+                        <Label text="%athlete.weight">
                             <VBox.margin>
                                 <Insets top="5.0" />
                             </VBox.margin>
@@ -93,7 +93,7 @@
                                 <Insets bottom="5.0" />
                             </VBox.margin>
                         </TextField>
-                        <Label text="%deportista.height">
+                        <Label text="%athlete.height">
                             <VBox.margin>
                                 <Insets top="5.0" />
                             </VBox.margin>
@@ -113,7 +113,6 @@
             <children>
                 <Button defaultButton="true" mnemonicParsing="false" onAction="#guardar" text="%btn.save" />
                 <Button cancelButton="true" mnemonicParsing="false" onAction="#cancelar" text="%btn.cancel" />
-                <Button fx:id="btnEliminar" disable="true" mnemonicParsing="false" onAction="#eliminar" text="%btn.delete" />
             </children>
             <VBox.margin>
                 <Insets top="10.0" />

@@ -157,5 +157,8 @@ public class Olimpiada {
     public int hashCode() {
         return Objects.hashCode(id_olimpiada);
     }
-
+    @Override
+    public String toString() {
+        return nombre;
+    }
 }

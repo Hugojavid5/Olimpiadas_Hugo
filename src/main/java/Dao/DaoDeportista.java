@@ -5,10 +5,10 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import model.Deportista;
 
-import java.sql.Blob;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.sql.*;
 
 /**
  * Clase donde se ejecuta las consultas para la tabla Deportista
@@ -170,4 +170,44 @@ public class DaoDeportista {
             return false;
         }
     }
+    public static boolean esEliminable(Deportista deportista) {
+        ConexionBBDD connection;
+        try {
+            connection = new ConexionBBDD();
+            String consulta = "SELECT count(*) as cont FROM Participacion WHERE id_deportista = ?";
+            PreparedStatement pstmt = connection.getConnection().prepareStatement(consulta);
+            pstmt.setInt(1, deportista.getId_deportista());
+            ResultSet rs = pstmt.executeQuery();
+            if (rs.next()) {
+                int cont = rs.getInt("cont");
+                rs.close();
+                connection.closeConnection();
+                return (cont==0);
+            }
+            rs.close();
+            connection.closeConnection();
+        } catch (SQLException e) {
+            System.err.println(e.getMessage());
+        }
+        return false;
+    }
+    public static Blob convertFileToBlob(File file) throws SQLException, IOException {
+        ConexionBBDD connection = new ConexionBBDD();
+        // Open a connection to the database
+        try (Connection conn = connection.getConnection();
+             FileInputStream inputStream = new FileInputStream(file)) {
+            // Create Blob
+            Blob blob = conn.createBlob();
+            // Write the file's bytes to the Blob
+            byte[] buffer = new byte[1024];
+            int bytesRead;
+            try (var outputStream = blob.setBinaryStream(1)) {
+                while ((bytesRead = inputStream.read(buffer)) != -1) {
+                    outputStream.write(buffer, 0, bytesRead);
+                }
+            }
+            return blob;
+        }
+    }
+
 }

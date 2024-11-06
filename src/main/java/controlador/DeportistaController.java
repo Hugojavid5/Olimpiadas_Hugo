@@ -5,13 +5,14 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
+import model.Deportista;
+
 import java.net.URL;
 import java.util.ResourceBundle;
 
 public class DeportistaController implements Initializable {
+    private Deportista deportista;
     @FXML
-    private Button btnEliminar;
-    @FXML // fx:id="foto"
     private ImageView foto;
     @FXML
     private RadioButton rbFemale;
@@ -32,7 +33,7 @@ public class DeportistaController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
+        this.resources = resourceBundle;
     }
     @FXML
     void cancelar(ActionEvent event) {
@@ -43,6 +44,14 @@ public class DeportistaController implements Initializable {
     @FXML
     void guardar(ActionEvent event) {
     }
+    public DeportistaController(Deportista deportista) {
+        this.deportista = deportista;
+    }
+
+    public DeportistaController() {
+        this.deportista = null;
+    }
+
     @FXML
     void seleccionImagen(ActionEvent event) {
     }

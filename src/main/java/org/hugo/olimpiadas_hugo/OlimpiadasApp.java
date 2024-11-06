@@ -6,6 +6,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import Language.LanguageManager;
 import java.util.ResourceBundle;
+import javafx.scene.image.Image;
 import  BBDD.ConexionBBDD;
 
 import java.io.IOException;
@@ -28,7 +29,8 @@ public class OlimpiadasApp extends Application {
         // Cargar el idioma
         ResourceBundle bundle = LanguageManager.getInstance().getBundle();
         // Lanzar aplicación
-        FXMLLoader fxmlLoader = new FXMLLoader(OlimpiadasApp.class.getResource("/fxml/Inicio.fxml"), bundle);
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/Inicio.fxml"), bundle);
+        stage.getIcons().add(new Image(getClass().getResourceAsStream("/Imagenes/olimpiadas.png")));
         Scene scene = new Scene(fxmlLoader.load());
         stage.setTitle("Inicio - Olimpiadas");
         stage.setScene(scene);

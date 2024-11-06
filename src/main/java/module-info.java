@@ -5,6 +5,8 @@ module org.hugo.olimpiadas_hugo {
 
     exports Language;
     opens Language to javafx.fxml;
+    exports model;
+    exports Dao;
     opens org.hugo.olimpiadas_hugo to javafx.fxml;
     exports org.hugo.olimpiadas_hugo;
 }

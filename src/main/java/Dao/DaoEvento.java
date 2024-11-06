@@ -167,4 +167,25 @@ public class DaoEvento {
             return false;
         }
     }
+    public static boolean esEliminable(Evento evento) {
+        ConexionBBDD connection;
+        try {
+            connection = new ConexionBBDD();
+            String consulta = "SELECT count(*) as cont FROM Participacion WHERE id_evento = ?";
+            PreparedStatement pstmt = connection.getConnection().prepareStatement(consulta);
+            pstmt.setInt(1, evento.getId_evento());
+            ResultSet rs = pstmt.executeQuery();
+            if (rs.next()) {
+                int cont = rs.getInt("cont");
+                rs.close();
+                connection.closeConnection();
+                return (cont==0);
+            }
+            rs.close();
+            connection.closeConnection();
+        } catch (SQLException e) {
+            System.err.println(e.getMessage());
+        }
+        return false;
+    }
 }

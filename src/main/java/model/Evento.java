@@ -115,5 +115,8 @@ public class Evento {
     public int hashCode() {
         return Objects.hashCode(id_evento);
     }
-
+    @Override
+    public String toString() {
+        return nombre;
+    }
 }

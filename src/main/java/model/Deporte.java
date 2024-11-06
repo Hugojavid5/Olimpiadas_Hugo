@@ -73,5 +73,9 @@ public class Deporte {
     public int hashCode() {
         return Objects.hashCode(id_deporte);
     }
+    @Override
+    public String toString() {
+        return nombre;
+    }
 
 }

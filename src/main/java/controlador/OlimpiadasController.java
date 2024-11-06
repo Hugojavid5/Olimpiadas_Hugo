@@ -1,42 +1,37 @@
 package controlador;
+
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
+import javafx.scene.control.*;
+import model.Olimpiada;
 
-import java.net.URL;
-import java.util.ResourceBundle;
-
-public class OlimpiadasController implements Initializable {
+/**
+ * Clase que controla los eventos de la ventana olimpiadas
+ */
+public class OlimpiadasController {
     @FXML
-    private ResourceBundle resources;
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-
+    private Button btnEliminar;
+    @FXML
+    private ComboBox<Olimpiada> cbOlimpiada;
+    @FXML
+    private RadioButton rbInvierno;
+    @FXML
+    private RadioButton rbVerano;
+    @FXML
+    private ToggleGroup tgTemporada;
+    @FXML
+    private TextField txtAnio;
+    @FXML
+    private TextField txtCiudad;
+    @FXML
+    private TextField txtNombre;
+    @FXML
+    void cancelar(ActionEvent event) {
     }
-    /**
-     * Función que muestra un mensaje de alerta al usuario
-     *
-     * @param texto contenido de la alerta
-     */
-    public void alerta(String texto) {
-        Alert alerta = new Alert(Alert.AlertType.ERROR);
-        alerta.setHeaderText(null);
-        alerta.setTitle("ERROR");
-        alerta.setContentText(texto);
-        alerta.showAndWait();
+    @FXML
+    void eliminar(ActionEvent event) {
     }
-    /**
-     * Función que muestra un mensaje de confirmación al usuario
-     *
-     * @param texto contenido del mensaje
-     */
-    public void confirmacion(String texto) {
-        Alert alerta = new Alert(Alert.AlertType.INFORMATION);
-        alerta.setHeaderText(null);
-        alerta.setTitle("Info");
-        alerta.setContentText(texto);
-        alerta.showAndWait();
+    @FXML
+    void guardar(ActionEvent event) {
     }
 }
-
-

@@ -96,5 +96,9 @@ import java.util.Objects;
         public int hashCode() {
             return Objects.hashCode(id_equipo);
         }
+        @Override
+        public String toString() {
+            return nombre;
+        }
 
     }
