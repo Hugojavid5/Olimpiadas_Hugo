@@ -33,6 +33,8 @@ public class OlimpiadasApp extends Application {
         stage.getIcons().add(new Image(getClass().getResourceAsStream("/Imagenes/olimpiadas.png")));
         Scene scene = new Scene(fxmlLoader.load());
         stage.setTitle(bundle.getString("app.name"));
+        stage.setMinWidth(550);
+        stage.setMinHeight(300);
         stage.setScene(scene);
         stage.show();
     }
