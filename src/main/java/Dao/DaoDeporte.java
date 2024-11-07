@@ -14,7 +14,7 @@ import java.sql.SQLException;
 public class DaoDeporte {
 
     /**
-     * Método que busca un deporte por medio de su id.
+     * Metodo que busca un deporte por medio de su id.
      *
      * @param id El id del deporte a buscar.
      * @return El objeto Deporte con los datos correspondientes o null si no se encuentra.
@@ -42,7 +42,7 @@ public class DaoDeporte {
     }
 
     /**
-     * Método que carga los datos de la tabla Deporte y los devuelve como una lista.
+     * Metodo que carga los datos de la tabla Deporte y los devuelve como una lista.
      * Los datos se utilizan para cargar en un TableView en la interfaz gráfica.
      *
      * @return Un ObservableList de deportes para cargar en un TableView.
@@ -70,7 +70,7 @@ public class DaoDeporte {
     }
 
     /**
-     * Método que modifica los datos de un deporte en la base de datos.
+     * Metodo que modifica los datos de un deporte en la base de datos.
      *
      * @param deporte El deporte con los datos actuales.
      * @param deporteNuevo El deporte con los nuevos datos a modificar.
@@ -97,7 +97,7 @@ public class DaoDeporte {
     }
 
     /**
-     * Método que crea un nuevo deporte en la base de datos.
+     * Metodo que crea un nuevo deporte en la base de datos.
      *
      * @param deporte El objeto Deporte con los datos a insertar.
      * @return El id del nuevo deporte insertado, o -1 si ocurrió un error.
@@ -131,7 +131,7 @@ public class DaoDeporte {
     }
 
     /**
-     * Método que elimina un deporte de la base de datos utilizando el modelo Deporte.
+     * Metodo que elimina un deporte de la base de datos utilizando el modelo Deporte.
      *
      * @param deporte El deporte a eliminar.
      * @return true si el deporte fue eliminado con éxito, false si ocurrió un error.
@@ -156,7 +156,7 @@ public class DaoDeporte {
     }
 
     /**
-     * Método que verifica si un deporte es eliminable, es decir, si no tiene eventos asociados.
+     * Metodo que verifica si un deporte es eliminable, es decir, si no tiene eventos asociados.
      *
      * @param deporte El deporte a comprobar.
      * @return true si el deporte puede eliminarse (sin eventos asociados), false en caso contrario.

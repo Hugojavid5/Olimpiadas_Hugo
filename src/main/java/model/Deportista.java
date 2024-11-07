@@ -47,7 +47,7 @@ public class Deportista {
     }
 
     /**
-     * Método para obtener la categoría de sexo a partir de un carácter.
+     * Metodo para obtener la categoría de sexo a partir de un carácter.
      *
      * @param sex el carácter que representa el sexo ('M' para masculino, 'F' para femenino)
      * @return la categoría de sexo correspondiente, o null si el carácter no es válido

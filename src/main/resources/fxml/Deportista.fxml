@@ -53,7 +53,7 @@
                                 <Image url="@../Imagenes/persona.jpg" />
                             </image>
                         </ImageView>
-                        <Button fx:id="btnFotoBorrar" disable="true" mnemonicParsing="false" onAction="#borrarFoto" styleClass="btnEliminar" text="%athlete.photo.rm">
+                        <Button fx:id="btt_FotoBorrar" disable="true" mnemonicParsing="false" onAction="#borrarFoto" styleClass="btnEliminar" text="%athlete.photo.rm">
                             <VBox.margin>
                                 <Insets top="5.0" />
                             </VBox.margin>
@@ -66,7 +66,7 @@
                 <VBox maxWidth="1.7976931348623157E308" HBox.hgrow="ALWAYS">
                     <children>
                         <Label text="%athlete.name" />
-                        <TextField fx:id="txtNombre">
+                        <TextField fx:id="txt_Nombre">
                             <VBox.margin>
                                 <Insets bottom="5.0" />
                             </VBox.margin>
@@ -94,7 +94,7 @@
                                 <Insets top="5.0" />
                             </VBox.margin>
                         </Label>
-                        <TextField fx:id="txtPeso" maxWidth="75.0" minWidth="-Infinity" prefWidth="75.0">
+                        <TextField fx:id="txt_Peso" maxWidth="75.0" minWidth="-Infinity" prefWidth="75.0">
                             <VBox.margin>
                                 <Insets bottom="5.0" />
                             </VBox.margin>
@@ -107,7 +107,7 @@
                                 <Insets top="5.0" />
                             </VBox.margin>
                         </Label>
-                        <TextField fx:id="txtAltura" maxWidth="75.0" minWidth="-Infinity" prefWidth="75.0">
+                        <TextField fx:id="txt_Altura" maxWidth="75.0" minWidth="-Infinity" prefWidth="75.0">
                             <tooltip>
                                 <Tooltip text="%athlete.height.tooltip" />
                             </tooltip>

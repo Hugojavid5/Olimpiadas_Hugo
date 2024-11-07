@@ -22,13 +22,13 @@ public class EventoController implements Initializable {
     private Evento evento;
 
     @FXML
-    private ListView<Deporte> lstDeporte;
+    private ListView<Deporte> lst_Deporte;
 
     @FXML
-    private ListView<Olimpiada> lstOlimpiada;
+    private ListView<Olimpiada> lst_Olimpiada;
 
     @FXML
-    private TextField txtNombre;
+    private TextField txt_Nombre;
 
     @FXML
     private ResourceBundle resources;
@@ -50,7 +50,7 @@ public class EventoController implements Initializable {
     }
 
     /**
-     * Método que se ejecuta al inicializar el controlador. Carga las listas de olimpiadas y deportes
+     * Metodo que se ejecuta al inicializar el controlador. Carga las listas de olimpiadas y deportes
      * y prellena los campos si el evento ya existe.
      *
      * @param url la URL del archivo FXML.
@@ -61,9 +61,9 @@ public class EventoController implements Initializable {
         this.resources = resourceBundle;
         cargarListas();
         if (this.evento != null) {
-            txtNombre.setText(evento.getNombre());
-            lstOlimpiada.getSelectionModel().select(evento.getOlimpiada());
-            lstDeporte.getSelectionModel().select(evento.getDeporte());
+            txt_Nombre.setText(evento.getNombre());
+            lst_Olimpiada.getSelectionModel().select(evento.getOlimpiada());
+            lst_Deporte.getSelectionModel().select(evento.getDeporte());
         }
     }
 
@@ -72,9 +72,9 @@ public class EventoController implements Initializable {
      */
     public void cargarListas() {
         ObservableList<Olimpiada> olimpiadas = DaoOlimpiada.cargarListado();
-        lstOlimpiada.getItems().addAll(olimpiadas);
+        lst_Olimpiada.getItems().addAll(olimpiadas);
         ObservableList<Deporte> deportes = DaoDeporte.cargarListado();
-        lstDeporte.getItems().addAll(deportes);
+        lst_Deporte.getItems().addAll(deportes);
     }
 
     /**
@@ -84,7 +84,7 @@ public class EventoController implements Initializable {
      */
     @FXML
     void cancelar(ActionEvent event) {
-        Stage stage = (Stage) txtNombre.getScene().getWindow();
+        Stage stage = (Stage) txt_Nombre.getScene().getWindow();
         stage.close();
     }
 
@@ -97,35 +97,35 @@ public class EventoController implements Initializable {
     @FXML
     void guardar(ActionEvent event) {
         String error = "";
-        if (txtNombre.getText().isEmpty()) {
+        if (txt_Nombre.getText().isEmpty()) {
             error = resources.getString("validate.event.name") + "\n";
         }
-        if (lstOlimpiada.getSelectionModel().getSelectedItem() == null) {
+        if (lst_Olimpiada.getSelectionModel().getSelectedItem() == null) {
             error += resources.getString("validate.event.olympic") + "\n";
         }
-        if (lstDeporte.getSelectionModel().getSelectedItem() == null) {
+        if (lst_Deporte.getSelectionModel().getSelectedItem() == null) {
             error += resources.getString("validate.event.sport") + "\n";
         }
         if (!error.isEmpty()) {
             alerta(error);
         } else {
             Evento nuevo = new Evento();
-            nuevo.setNombre(txtNombre.getText());
-            nuevo.setOlimpiada(lstOlimpiada.getSelectionModel().getSelectedItem());
-            nuevo.setDeporte(lstDeporte.getSelectionModel().getSelectedItem());
+            nuevo.setNombre(txt_Nombre.getText());
+            nuevo.setOlimpiada(lst_Olimpiada.getSelectionModel().getSelectedItem());
+            nuevo.setDeporte(lst_Deporte.getSelectionModel().getSelectedItem());
             if (this.evento == null) {
                 int id = DaoEvento.insertar(nuevo);
                 if (id == -1) {
                     alerta(resources.getString("save.fail"));
                 } else {
                     confirmacion(resources.getString("save.events"));
-                    Stage stage = (Stage) txtNombre.getScene().getWindow();
+                    Stage stage = (Stage) txt_Nombre.getScene().getWindow();
                     stage.close();
                 }
             } else {
                 if (DaoEvento.modificar(evento, nuevo)) {
                     confirmacion(resources.getString("update.events"));
-                    Stage stage = (Stage) txtNombre.getScene().getWindow();
+                    Stage stage = (Stage) txt_Nombre.getScene().getWindow();
                     stage.close();
                 } else {
                     alerta(resources.getString("save.fail"));

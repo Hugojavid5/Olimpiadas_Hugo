@@ -19,19 +19,19 @@ public class EquiposController implements Initializable {
     private Equipo crear;
 
     @FXML
-    private Button btnEliminar;
+    private Button btt_Eliminar;
 
     @FXML
-    private Label lblDelete;
+    private Label lbl_Delete;
 
     @FXML
-    private ComboBox<Equipo> cbEquipo;
+    private ComboBox<Equipo> cb_Equipo;
 
     @FXML
-    private TextField txtIniciales;
+    private TextField txt_Iniciales;
 
     @FXML
-    private TextField txtNombre;
+    private TextField txt_Nombre;
 
     @FXML
     private ResourceBundle resources; // ResourceBundle injected automatically by FXML loader
@@ -52,7 +52,7 @@ public class EquiposController implements Initializable {
         crear.setNombre(resources.getString("cb.new"));
         cargarEquipos();
         // Listener ComboBox
-        cbEquipo.getSelectionModel().selectedItemProperty().addListener(this::cambioEquipo);
+        cb_Equipo.getSelectionModel().selectedItemProperty().addListener(this::cambioEquipo);
     }
 
     /**
@@ -60,11 +60,11 @@ public class EquiposController implements Initializable {
      * Añade todos los equipos existentes, incluyendo una opción para crear un nuevo equipo.
      */
     public void cargarEquipos() {
-        cbEquipo.getItems().clear();
-        cbEquipo.getItems().add(crear);
+        cb_Equipo.getItems().clear();
+        cb_Equipo.getItems().add(crear);
         ObservableList<Equipo> equipos = DaoEquipo.cargarListado();
-        cbEquipo.getItems().addAll(equipos);
-        cbEquipo.getSelectionModel().select(0);
+        cb_Equipo.getItems().addAll(equipos);
+        cb_Equipo.getSelectionModel().select(0);
     }
 
     /**
@@ -77,20 +77,20 @@ public class EquiposController implements Initializable {
      */
     public void cambioEquipo(ObservableValue<? extends Equipo> observable, Equipo oldValue, Equipo newValue) {
         if (newValue != null) {
-            btnEliminar.setDisable(true);
-            lblDelete.setVisible(false);
+            btt_Eliminar.setDisable(true);
+            lbl_Delete.setVisible(false);
             if (newValue.equals(crear)) {
                 equipo = null;
-                txtNombre.setText(null);
-                txtIniciales.setText(null);
+                txt_Nombre.setText(null);
+                txt_Iniciales.setText(null);
             } else {
                 equipo = newValue;
-                txtNombre.setText(equipo.getNombre());
-                txtIniciales.setText(equipo.getIniciales());
+                txt_Nombre.setText(equipo.getNombre());
+                txt_Iniciales.setText(equipo.getIniciales());
                 if (DaoEquipo.esEliminable(equipo)) {
-                    btnEliminar.setDisable(false);
+                    btt_Eliminar.setDisable(false);
                 } else {
-                    lblDelete.setVisible(true);
+                    lbl_Delete.setVisible(true);
                 }
             }
         }
@@ -103,7 +103,7 @@ public class EquiposController implements Initializable {
      */
     @FXML
     void cancelar(ActionEvent event) {
-        Stage stage = (Stage)txtNombre.getScene().getWindow();
+        Stage stage = (Stage)txt_Nombre.getScene().getWindow();
         stage.close();
     }
 
@@ -115,7 +115,7 @@ public class EquiposController implements Initializable {
     @FXML
     void eliminar(ActionEvent event) {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.initOwner(txtNombre.getScene().getWindow());
+        alert.initOwner(txt_Nombre.getScene().getWindow());
         alert.setHeaderText(null);
         alert.setTitle(resources.getString("window.confirm"));
         alert.setContentText(resources.getString("delete.teams.prompt"));
@@ -139,13 +139,13 @@ public class EquiposController implements Initializable {
     @FXML
     void guardar(ActionEvent event) {
         String error = "";
-        if (txtNombre.getText().isEmpty()) {
+        if (txt_Nombre.getText().isEmpty()) {
             error = resources.getString("validate.teams.name") + "\n";
         }
-        if (txtIniciales.getText().isEmpty()) {
+        if (txt_Iniciales.getText().isEmpty()) {
             error +=  resources.getString("validate.teams.noc") + "\n";
         } else {
-            if (txtIniciales.getText().length() > 3) {
+            if (txt_Iniciales.getText().length() > 3) {
                 error +=  resources.getString("validate.teams.noc.num") +  "\n";
             }
         }
@@ -153,8 +153,8 @@ public class EquiposController implements Initializable {
             alerta(error);
         } else {
             Equipo nuevo = new Equipo();
-            nuevo.setNombre(txtNombre.getText());
-            nuevo.setIniciales(txtIniciales.getText());
+            nuevo.setNombre(txt_Nombre.getText());
+            nuevo.setIniciales(txt_Iniciales.getText());
             if (this.equipo == null) {
                 int id = DaoEquipo.insertar(nuevo);
                 if (id == -1) {

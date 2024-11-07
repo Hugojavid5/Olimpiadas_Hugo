@@ -37,15 +37,15 @@
             </rowConstraints>
             <children>
                 <Label text="%teams.cb" />
-                <ComboBox fx:id="cbEquipo" maxWidth="1.7976931348623157E308" GridPane.columnIndex="1">
+                <ComboBox fx:id="cb_Equipo" maxWidth="1.7976931348623157E308" GridPane.columnIndex="1">
                     <tooltip>
                         <Tooltip text="%cb.new.tooltip" />
                     </tooltip>
                 </ComboBox>
                 <Label text="%teams.name" GridPane.rowIndex="1" />
-                <TextField fx:id="txtNombre" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                <TextField fx:id="txt_Nombre" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                 <Label text="%teams.noc" GridPane.rowIndex="2" />
-                <TextField fx:id="txtIniciales" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                <TextField fx:id="txt_Iniciales" GridPane.columnIndex="1" GridPane.rowIndex="2">
                     <tooltip>
                         <Tooltip text="%teams.noc.tooltip" />
                     </tooltip>
@@ -58,7 +58,7 @@
         <FlowPane alignment="CENTER" hgap="5.0">
             <children>
                 <Button defaultButton="true" mnemonicParsing="false" onAction="#guardar" styleClass="btnGuardar" text="%btn.save" />
-                <Button fx:id="btnEliminar" disable="true" mnemonicParsing="false" onAction="#eliminar" styleClass="btnEliminar" text="%btn.delete" />
+                <Button fx:id="btt_Eliminar" disable="true" mnemonicParsing="false" onAction="#eliminar" styleClass="btnEliminar" text="%btn.delete" />
                 <Button cancelButton="true" mnemonicParsing="false" onAction="#cancelar" styleClass="btnCerrar" text="%btn.close" />
             </children>
             <VBox.margin>
@@ -67,7 +67,7 @@
         </FlowPane>
         <FlowPane alignment="CENTER" columnHalignment="CENTER">
             <children>
-                <Label fx:id="lblDelete" alignment="CENTER" contentDisplay="CENTER" maxWidth="280.0" minWidth="-Infinity" prefWidth="280.0" styleClass="rojo" text="%label.not_deletable" textAlignment="CENTER" visible="false" wrapText="true" />
+                <Label fx:id="lbl_Delete" alignment="CENTER" contentDisplay="CENTER" maxWidth="280.0" minWidth="-Infinity" prefWidth="280.0" styleClass="rojo" text="%label.not_deletable" textAlignment="CENTER" visible="false" wrapText="true" />
             </children>
             <VBox.margin>
                 <Insets top="5.0" />

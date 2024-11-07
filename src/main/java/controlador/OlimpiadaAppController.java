@@ -1,9 +1,11 @@
 package controlador;
 
+import BBDD.ConexionBBDD;
 import Dao.DaoDeportista;
 import Dao.DaoEvento;
 import Dao.DaoParticipacion;
 import Language.LanguageSwitcher;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -74,9 +76,8 @@ public class OlimpiadaAppController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         this.resources = resourceBundle;
-        /*
         // Controlar acceso a la base de datos
-
+        /*
         try {
             new ConexionBBDD();
         } catch (SQLException e) {
@@ -85,13 +86,11 @@ public class OlimpiadaAppController implements Initializable {
             return;
         }
         */
-        // Select de idioma
         if (resources.getLocale().equals(new Locale("es"))) {
             langES.setSelected(true);
         } else {
             langEN.setSelected(true);
         }
-        // Idioma
         tgIdioma.selectedToggleProperty().addListener((observableValue, oldToggle, newToggle) -> {
             Locale locale;
             if (langES.isSelected()) {
@@ -627,7 +626,7 @@ public class OlimpiadaAppController implements Initializable {
      * @param deshabilitado los menus
      */
     private void deshabilitarMenus(boolean deshabilitado) {
-        btnEditar.setDisable(deshabilitado);
+        btnEliminar.setDisable(deshabilitado);
     }
 
     /**

@@ -19,7 +19,7 @@ import java.sql.SQLException;
 public class DaoParticipacion {
 
     /**
-     * Método que carga los datos de la tabla Participacion y los devuelve como un listado de participaciones.
+     * Metodo que carga los datos de la tabla Participacion y los devuelve como un listado de participaciones.
      * Este listado puede ser utilizado en un TableView para mostrar los datos.
      *
      * @return ObservableList<Participacion> listado de participaciones cargado desde la base de datos
@@ -53,7 +53,7 @@ public class DaoParticipacion {
     }
 
     /**
-     * Método que modifica los datos de una participación en la base de datos.
+     * Metodo que modifica los datos de una participación en la base de datos.
      *
      * @param participacion      la participación actual con los datos previos
      * @param participacionNuevo los nuevos datos de la participación
@@ -85,7 +85,7 @@ public class DaoParticipacion {
     }
 
     /**
-     * Método que inserta una nueva participación en la base de datos.
+     * Metodo que inserta una nueva participación en la base de datos.
      *
      * @param participacion la nueva participación a insertar en la base de datos
      * @return true si la inserción fue exitosa, false en caso contrario
@@ -112,7 +112,7 @@ public class DaoParticipacion {
     }
 
     /**
-     * Método que elimina una participación de la base de datos en función de los datos de la participación.
+     * Metodo que elimina una participación de la base de datos en función de los datos de la participación.
      *
      * @param participacion la participación que se desea eliminar
      * @return true si la eliminación fue exitosa, false en caso contrario

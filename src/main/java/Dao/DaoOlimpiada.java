@@ -15,7 +15,7 @@ import java.sql.SQLException;
 public class DaoOlimpiada {
 
     /**
-     * Método que busca una olimpiada por medio de su ID.
+     * Metodo que busca una olimpiada por medio de su ID.
      *
      * @param id ID de la olimpiada a buscar.
      * @return Olipiada encontrada o null si no se encuentra.
@@ -46,7 +46,7 @@ public class DaoOlimpiada {
     }
 
     /**
-     * Método que carga los datos de todas las olimpiadas y los devuelve como una lista observable para un TableView.
+     * Metodo que carga los datos de todas las olimpiadas y los devuelve como una lista observable para un TableView.
      *
      * @return Lista observable de olimpiadas.
      */
@@ -76,7 +76,7 @@ public class DaoOlimpiada {
     }
 
     /**
-     * Método que modifica los datos de una olimpiada en la base de datos.
+     * Metodo que modifica los datos de una olimpiada en la base de datos.
      *
      * @param olimpiada      Instancia de la olimpiada con los datos actuales.
      * @param olimpiadaNuevo Nuevos datos de la olimpiada a modificar.
@@ -106,7 +106,7 @@ public class DaoOlimpiada {
     }
 
     /**
-     * Método que crea una nueva olimpiada en la base de datos.
+     * Metodo que crea una nueva olimpiada en la base de datos.
      *
      * @param olimpiada Instancia del modelo de olimpiada con los datos nuevos.
      * @return ID de la nueva olimpiada si la inserción fue exitosa, -1 en caso contrario.

@@ -13,7 +13,6 @@ import java.io.IOException;
 /**
  * Clase principal que lanza la aplicación de la Olimpiada.
  * Se encarga de cargar la interfaz gráfica, gestionar el idioma de la aplicación y mostrar la ventana principal.
- *
  */
 public class OlimpiadasApp extends Application {
 
@@ -52,7 +51,7 @@ public class OlimpiadasApp extends Application {
     }
 
     /**
-     * Método principal que inicia la aplicación.
+     * Metodo principal que inicia la aplicación.
      * Llama a {@link Application#launch(String...)} para arrancar la aplicación JavaFX.
      *
      * @param args los argumentos de la línea de comandos

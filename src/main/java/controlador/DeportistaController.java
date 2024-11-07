@@ -34,13 +34,13 @@ public class DeportistaController implements Initializable {
     @FXML
     private ToggleGroup tgSexo;
     @FXML
-    private TextField txtAltura;
+    private TextField txt_Altura;
     @FXML
-    private TextField txtNombre;
+    private TextField txt_Nombre;
     @FXML
-    private TextField txtPeso;
+    private TextField txt_Peso;
     @FXML
-    private Button btnFotoBorrar;
+    private Button btt_FotoBorrar;
 
     @FXML
     private ResourceBundle resources;
@@ -57,7 +57,7 @@ public class DeportistaController implements Initializable {
         this.resources = resourceBundle;
         this.imagen = null;
         if (deportista != null) {
-            txtNombre.setText(deportista.getNombre());
+            txt_Nombre.setText(deportista.getNombre());
             if (deportista.getSexo() == 'F') {
                 rbFemale.setSelected(true);
                 rbMale.setSelected(false);
@@ -65,10 +65,9 @@ public class DeportistaController implements Initializable {
                 rbMale.setSelected(true);
                 rbFemale.setSelected(false);
             }
-            txtPeso.setText(deportista.getPeso() + "");
-            txtAltura.setText(deportista.getAltura() + "");
+            txt_Peso.setText(deportista.getPeso() + "");
+            txt_Altura.setText(deportista.getAltura() + "");
             if (deportista.getFoto() != null) {
-                System.out.println("Has image");
                 this.imagen = deportista.getFoto();
                 try {
                     InputStream imagen = deportista.getFoto().getBinaryStream();
@@ -76,14 +75,14 @@ public class DeportistaController implements Initializable {
                 } catch (SQLException e) {
                     throw new RuntimeException(e);
                 }
-                btnFotoBorrar.setDisable(false);
+                btt_FotoBorrar.setDisable(false);
             }
         }
     }
 
     /**
      * Maneja el evento de eliminación de la foto seleccionada.
-     * Al invocar este método, la variable de imagen se establece en nulo
+     * Al invocar este metodo, la variable de imagen se establece en nulo
      * y se reemplaza la imagen actual por una imagen predeterminada del recurso.
      * También desactiva el botón de eliminación de la foto.
      *
@@ -93,7 +92,7 @@ public class DeportistaController implements Initializable {
     void borrarFoto(ActionEvent event) {
         imagen = null;
         foto.setImage(new Image(getClass().getResourceAsStream("/Imagenes/persona.jpg")));
-        btnFotoBorrar.setDisable(true);
+        btt_FotoBorrar.setDisable(true);
     }
 
     /**
@@ -103,7 +102,7 @@ public class DeportistaController implements Initializable {
      */
     @FXML
     void eliminar(ActionEvent event) {
-        Stage stage = (Stage) txtNombre.getScene().getWindow();
+        Stage stage = (Stage) txt_Nombre.getScene().getWindow();
         stage.close();
     }
 
@@ -120,14 +119,14 @@ public class DeportistaController implements Initializable {
             alerta(error);
         } else {
             Deportista nuevo = new Deportista();
-            nuevo.setNombre(txtNombre.getText());
+            nuevo.setNombre(txt_Nombre.getText());
             if (rbFemale.isSelected()) {
                 nuevo.setSexo(nuevo.getSexCategory('F'));
             } else {
                 nuevo.setSexo(nuevo.getSexCategory('M'));
             }
-            nuevo.setPeso(Integer.parseInt(txtPeso.getText()));
-            nuevo.setAltura(Integer.parseInt(txtAltura.getText()));
+            nuevo.setPeso(Integer.parseInt(txt_Peso.getText()));
+            nuevo.setAltura(Integer.parseInt(txt_Altura.getText()));
             nuevo.setFoto(this.imagen);
             if (this.deportista == null) {
                 int id = DaoDeportista.insertar(nuevo);
@@ -135,13 +134,13 @@ public class DeportistaController implements Initializable {
                     alerta(resources.getString("save.fail"));
                 } else {
                     confirmacion(resources.getString("save.athlete"));
-                    Stage stage = (Stage) txtNombre.getScene().getWindow();
+                    Stage stage = (Stage) txt_Nombre.getScene().getWindow();
                     stage.close();
                 }
             } else {
                 if (DaoDeportista.modificar(this.deportista, nuevo)) {
                     confirmacion(resources.getString("update.athlete"));
-                    Stage stage = (Stage) txtNombre.getScene().getWindow();
+                    Stage stage = (Stage) txt_Nombre.getScene().getWindow();
                     stage.close();
                 } else {
                     alerta(resources.getString("save.fail"));
@@ -158,23 +157,23 @@ public class DeportistaController implements Initializable {
      */
     private String validar() {
         String error = "";
-        if (txtNombre.getText().isEmpty()) {
+        if (txt_Nombre.getText().isEmpty()) {
             error = resources.getString("validate.athlete.name") + "\n";
         }
-        if (txtPeso.getText().isEmpty()) {
+        if (txt_Peso.getText().isEmpty()) {
             error += resources.getString("validate.athlete.weight") + "\n";
         } else {
             try {
-                Integer.parseInt(txtPeso.getText());
+                Integer.parseInt(txt_Peso.getText());
             } catch (NumberFormatException e) {
                 error += resources.getString("validate.athlete.weight.num") + "\n";
             }
         }
-        if (txtAltura.getText().isEmpty()) {
+        if (txt_Altura.getText().isEmpty()) {
             error += resources.getString("validate.athlete.height") + "\n";
         } else {
             try {
-                Integer.parseInt(txtAltura.getText());
+                Integer.parseInt(txt_Altura.getText());
             } catch (NumberFormatException e) {
                 error += resources.getString("validate.athlete.height.num") + "\n";
             }
@@ -199,7 +198,7 @@ public class DeportistaController implements Initializable {
         File file = fileChooser.showOpenDialog(null);
 
         if (file == null) {
-            return;  // Si no se selecciona ningún archivo, salimos del método
+            return;  // Si no se selecciona ningún archivo, salimos del metodo
         }
 
         try {
@@ -218,7 +217,7 @@ public class DeportistaController implements Initializable {
                     Image image = new Image(imagen);
                     foto.setImage(image);  // Cargamos la imagen en el control ImageView
                     this.imagen = DaoDeportista.convertFileToBlob(file);  // Si necesitas el Blob
-                    btnFotoBorrar.setDisable(false);
+                    btt_FotoBorrar.setDisable(false);
                 } catch (IllegalArgumentException | IOException e) {
                     alerta("No se pudo procesar la imagen. Asegúrate de que el archivo sea una imagen válida.");
                     e.printStackTrace();

@@ -25,7 +25,7 @@
         <HBox alignment="CENTER_LEFT">
             <children>
                 <Label text="%event.name" />
-                <TextField fx:id="txtNombre">
+                <TextField fx:id="txt_Nombre">
                     <HBox.margin>
                         <Insets left="10.0" />
                     </HBox.margin>
@@ -47,7 +47,7 @@
                                 <Insets bottom="5.0" />
                             </padding>
                         </Label>
-                        <ListView fx:id="lstOlimpiada" />
+                        <ListView fx:id="lst_Olimpiada" />
                     </children>
                 </VBox>
                 <VBox prefHeight="200.0">
@@ -57,7 +57,7 @@
                                 <Insets bottom="5.0" />
                             </padding>
                         </Label>
-                        <ListView fx:id="lstDeporte" />
+                        <ListView fx:id="lst_Deporte" />
                     </children>
                 </VBox>
             </children>

@@ -22,13 +22,13 @@ public class DeportesController implements Initializable {
     private Deporte crear;
 
     @FXML
-    private Button btnEliminar;
+    private Button btt_Eliminar;
     @FXML
-    private Label lblDelete;
+    private Label lbl_Delete;
     @FXML
-    private ComboBox<Deporte> cbDeporte;
+    private ComboBox<Deporte> cb_Deporte;
     @FXML
-    private TextField txtNombre;
+    private TextField txt_Nombre;
     @FXML
     private ResourceBundle resources;
 
@@ -47,7 +47,7 @@ public class DeportesController implements Initializable {
         crear.setNombre(resources.getString("cb.new"));
         cargarDeportes();
         // Listener ComboBox
-        cbDeporte.getSelectionModel().selectedItemProperty().addListener(this::cambioDeporte);
+        cb_Deporte.getSelectionModel().selectedItemProperty().addListener(this::cambioDeporte);
     }
 
     /**
@@ -55,11 +55,11 @@ public class DeportesController implements Initializable {
      * También añade la opción de "crear" al principio de la lista.
      */
     public void cargarDeportes() {
-        cbDeporte.getItems().clear();
-        cbDeporte.getItems().add(crear);
+        cb_Deporte.getItems().clear();
+        cb_Deporte.getItems().add(crear);
         ObservableList<Deporte> deportes = DaoDeporte.cargarListado();
-        cbDeporte.getItems().addAll(deportes);
-        cbDeporte.getSelectionModel().select(0);
+        cb_Deporte.getItems().addAll(deportes);
+        cb_Deporte.getSelectionModel().select(0);
     }
 
     /**
@@ -72,18 +72,18 @@ public class DeportesController implements Initializable {
      */
     public void cambioDeporte(ObservableValue<? extends Deporte> observable, Deporte oldValue, Deporte newValue) {
         if (newValue != null) {
-            btnEliminar.setDisable(true);
-            lblDelete.setVisible(false);
+            btt_Eliminar.setDisable(true);
+            lbl_Delete.setVisible(false);
             if (newValue.equals(crear)) {
                 deporte = null;
-                txtNombre.setText(null);
+                txt_Nombre.setText(null);
             } else {
                 deporte = newValue;
-                txtNombre.setText(deporte.getNombre());
+                txt_Nombre.setText(deporte.getNombre());
                 if (DaoDeporte.esEliminable(deporte)) {
-                    btnEliminar.setDisable(false);
+                    btt_Eliminar.setDisable(false);
                 } else {
-                    lblDelete.setVisible(true);
+                    lbl_Delete.setVisible(true);
                 }
             }
         }
@@ -96,7 +96,7 @@ public class DeportesController implements Initializable {
      */
     @FXML
     void cancelar(ActionEvent event) {
-        Stage stage = (Stage) txtNombre.getScene().getWindow();
+        Stage stage = (Stage) txt_Nombre.getScene().getWindow();
         stage.close();
     }
 
@@ -108,7 +108,7 @@ public class DeportesController implements Initializable {
     @FXML
     void eliminar(ActionEvent event) {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.initOwner(txtNombre.getScene().getWindow());
+        alert.initOwner(txt_Nombre.getScene().getWindow());
         alert.setHeaderText(null);
         alert.setTitle(resources.getString("window.confirm"));
         alert.setContentText(resources.getString("delete.sports.prompt"));
@@ -131,11 +131,11 @@ public class DeportesController implements Initializable {
      */
     @FXML
     void guardar(ActionEvent event) {
-        if (txtNombre.getText().isEmpty()) {
+        if (txt_Nombre.getText().isEmpty()) {
             alerta(resources.getString("validate.sports.name"));
         } else {
             Deporte nuevo = new Deporte();
-            nuevo.setNombre(txtNombre.getText());
+            nuevo.setNombre(txt_Nombre.getText());
             if (this.deporte == null) {
                 int id = DaoDeporte.insertar(nuevo);
                 if (id == -1) {

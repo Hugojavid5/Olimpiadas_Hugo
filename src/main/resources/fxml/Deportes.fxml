@@ -36,13 +36,13 @@
             </rowConstraints>
             <children>
                 <Label text="%sports.cb" />
-                <ComboBox fx:id="cbDeporte" maxWidth="1.7976931348623157E308" GridPane.columnIndex="1">
+                <ComboBox fx:id="cb_Deporte" maxWidth="1.7976931348623157E308" GridPane.columnIndex="1">
                     <tooltip>
                         <Tooltip text="%cb.new.tooltip" />
                     </tooltip>
                 </ComboBox>
                 <Label text="%sports.name" GridPane.rowIndex="1" />
-                <TextField fx:id="txtNombre" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                <TextField fx:id="txt_Nombre" GridPane.columnIndex="1" GridPane.rowIndex="1" />
             </children>
             <padding>
                 <Insets bottom="5.0" top="5.0" />
@@ -51,7 +51,7 @@
         <FlowPane alignment="CENTER" hgap="5.0">
             <children>
                 <Button defaultButton="true" mnemonicParsing="false" onAction="#guardar" styleClass="btnGuardar" text="%btn.save" />
-                <Button fx:id="btnEliminar" disable="true" mnemonicParsing="false" onAction="#eliminar" styleClass="btnEliminar" text="%btn.delete" />
+                <Button fx:id="btt_Eliminar" disable="true" mnemonicParsing="false" onAction="#eliminar" styleClass="btnEliminar" text="%btn.delete" />
                 <Button cancelButton="true" mnemonicParsing="false" onAction="#cancelar" styleClass="btnCerrar" text="%btn.close" />
             </children>
             <VBox.margin>
@@ -60,7 +60,7 @@
         </FlowPane>
         <FlowPane alignment="CENTER" columnHalignment="CENTER" visible="false">
             <children>
-                <Label fx:id="lblDelete" alignment="CENTER" contentDisplay="CENTER" maxWidth="280.0" minWidth="-Infinity" prefWidth="280.0" styleClass="rojo" text="%label.not_deletable" textAlignment="CENTER" wrapText="true" />
+                <Label fx:id="lbl_Delete" alignment="CENTER" contentDisplay="CENTER" maxWidth="280.0" minWidth="-Infinity" prefWidth="280.0"  text="%label.not_deletable" textAlignment="CENTER" wrapText="true" />
             </children>
             <VBox.margin>
                 <Insets top="5.0" />
