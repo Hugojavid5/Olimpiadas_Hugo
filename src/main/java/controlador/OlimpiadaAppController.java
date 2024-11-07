@@ -77,7 +77,7 @@ public class OlimpiadaAppController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         this.resources = resourceBundle;
         // Controlar acceso a la base de datos
-        /*
+
         try {
             new ConexionBBDD();
         } catch (SQLException e) {
@@ -85,7 +85,7 @@ public class OlimpiadaAppController implements Initializable {
             Platform.exit(); // Cierra la aplicación
             return;
         }
-        */
+
         if (resources.getLocale().equals(new Locale("es"))) {
             langES.setSelected(true);
         } else {
