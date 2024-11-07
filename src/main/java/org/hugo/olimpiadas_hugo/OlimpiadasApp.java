@@ -15,7 +15,7 @@ import java.io.IOException;
  * Clase principal que lanza la aplicación de la Olimpiada.
  * Se encarga de cargar la interfaz gráfica, gestionar el idioma de la aplicación y mostrar la ventana principal.
  *
- * @author alesandroquirosgobbato
+ *
  */
 public class OlimpiadasApp extends Application {
 
