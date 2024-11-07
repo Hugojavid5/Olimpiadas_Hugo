@@ -1,14 +1,9 @@
 package controlador;
 
-import BBDD.ConexionBBDD;
 import Dao.DaoDeportista;
 import Dao.DaoEvento;
 import Dao.DaoParticipacion;
 import Language.LanguageSwitcher;
-import controlador.DeportistaController;
-import controlador.EventoController;
-import controlador.ParticipacionController;
-import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -19,6 +14,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -29,6 +25,7 @@ import model.Participacion;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.Blob;
 import java.sql.SQLException;
 import java.util.Locale;
 import java.util.Optional;
@@ -77,7 +74,9 @@ public class OlimpiadaAppController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         this.resources = resourceBundle;
+        /*
         // Controlar acceso a la base de datos
+
         try {
             new ConexionBBDD();
         } catch (SQLException e) {
@@ -85,6 +84,7 @@ public class OlimpiadaAppController implements Initializable {
             Platform.exit(); // Cierra la aplicación
             return;
         }
+        */
         // Select de idioma
         if (resources.getLocale().equals(new Locale("es"))) {
             langES.setSelected(true);
@@ -515,7 +515,48 @@ public class OlimpiadaAppController implements Initializable {
         colPeso.setCellValueFactory(new PropertyValueFactory("peso"));
         TableColumn<Deportista, Integer> colAltura = new TableColumn<>(resources.getString("table.athlete.height"));
         colAltura.setCellValueFactory(new PropertyValueFactory("altura"));
-        tabla.getColumns().addAll(colId,colNombre,colSexo,colPeso,colAltura);
+
+        TableColumn<Deportista, Blob> colFoto = new TableColumn<>(resources.getString("table.athlete.foto"));
+        colFoto.setCellValueFactory(new PropertyValueFactory<>("foto"));
+        // Configurar el cell factory para mostrar las imágenes
+        colFoto.setCellFactory(column -> new TableCell<Deportista, Blob>() {
+            private final ImageView imageView = new ImageView();
+            private final Image imagenPorDefecto = new Image(getClass().getResourceAsStream("/Imagenes/persona.jpg"));
+
+            @Override
+            protected void updateItem(Blob item, boolean empty) {
+                super.updateItem(item, empty);
+
+                // Asegúrate de limpiar el gráfico si la celda está vacía
+                if (empty) {
+                    setGraphic(null);
+                } else {
+                    if (item == null) {
+                        // No hay imagen, usar imagen por defecto
+                        imageView.setImage(imagenPorDefecto);
+                    } else {
+                        try {
+                            // Convierte el Blob a un Image
+                            Image image = new Image(item.getBinaryStream());
+                            imageView.setImage(image);
+                        } catch (SQLException e) {
+                            e.printStackTrace();
+                            // En caso de error, establecer la imagen por defecto
+                            imageView.setImage(imagenPorDefecto);
+                        }
+                    }
+
+                    // Ajusta el tamaño de la imagen y mantiene su proporción
+                    imageView.setFitWidth(50); // Establece el ancho de la imagen
+                    imageView.setFitHeight(50); // Establece la altura de la imagen
+                    imageView.setPreserveRatio(true); // Mantiene la proporción de la imagen
+
+                    // Establecer la gráfica de la celda
+                    setGraphic(imageView); // Muestra la imagen en la celda
+                }
+            }
+        });
+        tabla.getColumns().addAll(colId,colNombre,colSexo,colPeso,colAltura,colFoto);
         // Cargar deportistas
         ObservableList<Deportista> deportistas = DaoDeportista.cargarListado();
         masterData.setAll(deportistas);
@@ -587,7 +628,6 @@ public class OlimpiadaAppController implements Initializable {
      */
     private void deshabilitarMenus(boolean deshabilitado) {
         btnEditar.setDisable(deshabilitado);
-        btnEliminar.setDisable(deshabilitado);
     }
 
     /**

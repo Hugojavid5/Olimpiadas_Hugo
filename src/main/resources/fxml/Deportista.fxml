@@ -89,7 +89,7 @@
                                 <Insets bottom="5.0" />
                             </VBox.margin>
                         </FlowPane>
-                        <Label text="Altura">
+                        <Label text="%athlete.weight">
                             <VBox.margin>
                                 <Insets top="5.0" />
                             </VBox.margin>
@@ -125,7 +125,7 @@
         <FlowPane alignment="CENTER" columnHalignment="CENTER" hgap="50.0">
             <children>
                 <Button defaultButton="true" mnemonicParsing="false" onAction="#guardar" styleClass="btnGuardar" text="%btn.save" />
-                <Button cancelButton="true" mnemonicParsing="false" onAction="#cancelar" styleClass="btnCerrar" text="%btn.cancel" />
+                <Button cancelButton="true" mnemonicParsing="false" onAction="#eliminar" styleClass="btnCerrar" text="%btn.cancel" />
             </children>
             <VBox.margin>
                 <Insets top="10.0" />

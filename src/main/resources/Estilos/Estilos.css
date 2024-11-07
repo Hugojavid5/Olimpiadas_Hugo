@@ -1,24 +1,24 @@
 * {
     -fx-font-family: sans-serif;
-    -fx-background-color: #71faa1;
-
 }
 .btnGuardar {
-    -fx-background-color: #fcd3d3;
+    -fx-background-color: #a3ff03;
 }
 .button {
      -fx-font-family: sans-serif;
      -fx-font-weight: bold;
  }
-
+.root{
+     -fx-background-color: #5ba6ff;
+}
 .btnEliminar {
-    -fx-background-color: #fcd3d3;
+    -fx-background-color: #a3ff03;
     }
 .btnCerrar {
-    -fx-background-color: #fcd3d3;
+    -fx-background-color: #a3ff03;
 }
 .btnAccion {
-    -fx-background-color:  #fcd3d3;
+    -fx-background-color:  #a3ff03;
 }
 .rojo {
     -fx-text-fill: red;

@@ -92,18 +92,8 @@ public class DeportistaController implements Initializable {
     @FXML
     void borrarFoto(ActionEvent event) {
         imagen = null;
-        foto.setImage(new Image(getClass().getResourceAsStream("/images/deportista.png")));
+        foto.setImage(new Image(getClass().getResourceAsStream("/Imagenes/persona.jpg")));
         btnFotoBorrar.setDisable(true);
-    }
-
-    /**
-     * Maneja el evento de cancelación.
-     * Actualmente, no realiza ninguna acción.
-     *
-     * @param event el evento de cancelación.
-     */
-    @FXML
-    void cancelar(ActionEvent event) {
     }
 
     /**
@@ -205,25 +195,45 @@ public class DeportistaController implements Initializable {
         fileChooser.setTitle(resources.getString("athlete.photo.chooser"));
         fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Image Files", "*.jpg", "*.jpeg", "*.png"));
         fileChooser.setInitialDirectory(new File("."));
+
         File file = fileChooser.showOpenDialog(null);
+
+        if (file == null) {
+            return;  // Si no se selecciona ningún archivo, salimos del método
+        }
+
         try {
+            // Verificación del tamaño del archivo
             double kbs = (double) file.length() / 1024;
             if (kbs > 64) {
                 alerta(resources.getString("athlete.photo.chooser.size"));
+            } else if (file.length() == 0) {
+                alerta("El archivo seleccionado está vacío.");
             } else {
+                // Usamos InputStream para cargar la imagen
                 InputStream imagen = new FileInputStream(file);
-                Blob blob = DaoDeportista.convertFileToBlob(file);
-                this.imagen = blob;
-                foto.setImage(new Image(imagen));
-                btnFotoBorrar.setDisable(false);
+
+                // Verificamos que la imagen se pueda cargar correctamente
+                try {
+                    Image image = new Image(imagen);
+                    foto.setImage(image);  // Cargamos la imagen en el control ImageView
+                    this.imagen = DaoDeportista.convertFileToBlob(file);  // Si necesitas el Blob
+                    btnFotoBorrar.setDisable(false);
+                } catch (IllegalArgumentException | IOException e) {
+                    alerta("No se pudo procesar la imagen. Asegúrate de que el archivo sea una imagen válida.");
+                    e.printStackTrace();
+                }
             }
-        } catch (IOException | NullPointerException e) {
-            System.out.println("Imagen no seleccionada");
+        } catch (IOException e) {
+            e.printStackTrace();
+            alerta(resources.getString("athlete.photo.chooser.fail"));
         } catch (SQLException e) {
             e.printStackTrace();
             alerta(resources.getString("athlete.photo.chooser.fail"));
         }
     }
+
+
 
     /**
      * Constructor con deportista existente. Inicializa el controlador con un deportista específico.
