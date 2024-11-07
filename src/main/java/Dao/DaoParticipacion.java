@@ -74,7 +74,6 @@ public class DaoParticipacion {
             pstmt.setInt(6, participacion.getDeportista().getId_deportista());
             pstmt.setInt(7, participacion.getEvento().getId_evento());
             int filasAfectadas = pstmt.executeUpdate();
-            System.out.println("Actualizado participación");
             pstmt.close();
             connection.closeConnection();
             return filasAfectadas > 0;
@@ -103,7 +102,6 @@ public class DaoParticipacion {
             pstmt.setInt(4, participacion.getEdad());
             pstmt.setString(5, participacion.getMedalla());
             int filasAfectadas = pstmt.executeUpdate();
-            System.out.println("Nueva entrada en participación");
             return filasAfectadas > 0;
         } catch (SQLException e) {
             System.err.println(e.getMessage());
@@ -129,7 +127,6 @@ public class DaoParticipacion {
             int filasAfectadas = pstmt.executeUpdate();
             pstmt.close();
             connection.closeConnection();
-            System.out.println("Eliminado con éxito");
             return filasAfectadas > 0;
         } catch (SQLException e) {
             System.err.println(e.getMessage());

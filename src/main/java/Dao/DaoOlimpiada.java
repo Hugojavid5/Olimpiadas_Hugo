@@ -95,7 +95,6 @@ public class DaoOlimpiada {
             pstmt.setString(4, olimpiadaNuevo.getCiudad());
             pstmt.setInt(5, olimpiada.getId_olimpiada());
             int filasAfectadas = pstmt.executeUpdate();
-            System.out.println("Actualizado olimpiada");
             pstmt.close();
             connection.closeConnection();
             return filasAfectadas > 0;
@@ -123,7 +122,6 @@ public class DaoOlimpiada {
             pstmt.setString(3, olimpiada.getTemporada().toString());
             pstmt.setString(4, olimpiada.getCiudad());
             int filasAfectadas = pstmt.executeUpdate();
-            System.out.println("Nueva entrada en olimpiada");
             if (filasAfectadas > 0) {
                 ResultSet rs = pstmt.getGeneratedKeys();
                 if (rs.next()) {
@@ -159,7 +157,7 @@ public class DaoOlimpiada {
             int filasAfectadas = pstmt.executeUpdate();
             pstmt.close();
             connection.closeConnection();
-            System.out.println("Eliminado con éxito");
+
             return filasAfectadas > 0;
         } catch (SQLException e) {
             System.err.println(e.getMessage());

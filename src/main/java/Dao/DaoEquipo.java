@@ -89,7 +89,7 @@ public class DaoEquipo {
             pstmt.setString(2, equipoNuevo.getIniciales());
             pstmt.setInt(3, equipo.getId_equipo());
             int filasAfectadas = pstmt.executeUpdate();
-            System.out.println("Actualizado equipo");
+
             pstmt.close();
             connection.closeConnection();
             return filasAfectadas > 0;
@@ -115,7 +115,6 @@ public class DaoEquipo {
             pstmt.setString(1, equipo.getNombre());
             pstmt.setString(2, equipo.getIniciales());
             int filasAfectadas = pstmt.executeUpdate();
-            System.out.println("Nueva entrada en equipo");
             if (filasAfectadas > 0) {
                 ResultSet rs = pstmt.getGeneratedKeys();
                 if (rs.next()) {
@@ -151,7 +150,6 @@ public class DaoEquipo {
             int filasAfectadas = pstmt.executeUpdate();
             pstmt.close();
             connection.closeConnection();
-            System.out.println("Eliminado con éxito");
             return filasAfectadas > 0;
         } catch (SQLException e) {
             System.err.println(e.getMessage());

@@ -99,7 +99,6 @@ public class DaoDeportista {
             pstmt.setBlob(5, deportistaNuevo.getFoto());
             pstmt.setInt(6, deportista.getId_deportista());
             int filasAfectadas = pstmt.executeUpdate();
-            System.out.println("Actualizado deportista");
             pstmt.close();
             connection.closeConnection();
             return filasAfectadas > 0;
@@ -128,7 +127,6 @@ public class DaoDeportista {
             pstmt.setInt(4, deportista.getAltura());
             pstmt.setBlob(5, deportista.getFoto());
             int filasAfectadas = pstmt.executeUpdate();
-            System.out.println("Nueva entrada en deportista");
             if (filasAfectadas > 0) {
                 ResultSet rs = pstmt.getGeneratedKeys();
                 if (rs.next()) {
@@ -164,7 +162,6 @@ public class DaoDeportista {
             int filasAfectadas = pstmt.executeUpdate();
             pstmt.close();
             connection.closeConnection();
-            System.out.println("Eliminado con éxito");
             return filasAfectadas > 0;
         } catch (SQLException e) {
             System.err.println(e.getMessage());

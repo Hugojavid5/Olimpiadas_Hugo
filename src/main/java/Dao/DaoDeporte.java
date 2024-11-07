@@ -86,7 +86,6 @@ public class DaoDeporte {
             pstmt.setString(1, deporteNuevo.getNombre());
             pstmt.setInt(2, deporte.getId_deporte());
             int filasAfectadas = pstmt.executeUpdate();
-            System.out.println("Actualizado deporte");
             pstmt.close();
             connection.closeConnection();
             return filasAfectadas > 0;
@@ -111,7 +110,6 @@ public class DaoDeporte {
             pstmt = connection.getConnection().prepareStatement(consulta, PreparedStatement.RETURN_GENERATED_KEYS);
             pstmt.setString(1, deporte.getNombre());
             int filasAfectadas = pstmt.executeUpdate();
-            System.out.println("Nueva entrada en deporte");
             if (filasAfectadas > 0) {
                 ResultSet rs = pstmt.getGeneratedKeys();
                 if (rs.next()) {
@@ -147,7 +145,6 @@ public class DaoDeporte {
             int filasAfectadas = pstmt.executeUpdate();
             pstmt.close();
             connection.closeConnection();
-            System.out.println("Eliminado con éxito");
             return filasAfectadas > 0;
         } catch (SQLException e) {
             System.err.println(e.getMessage());
