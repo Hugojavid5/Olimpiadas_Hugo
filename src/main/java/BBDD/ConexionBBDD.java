@@ -23,7 +23,7 @@ public class ConexionBBDD {
      * Utiliza los parámetros de configuración leídos desde el archivo "configuracion.properties".
      *
      * @throws SQLException Si ocurre un error al intentar conectar a la base de datos.
-     */
+*/
     public ConexionBBDD() throws SQLException {
         // Los parámetros de la conexión
         Properties configuracion = getConfiguracion();
