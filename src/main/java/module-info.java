@@ -4,6 +4,8 @@ module org.hugo.olimpiadas_hugo {
     requires java.sql;
 
     exports Language;
+    exports controlador;
+    opens controlador to javafx.fxml;
     opens Language to javafx.fxml;
     exports model;
     exports Dao;

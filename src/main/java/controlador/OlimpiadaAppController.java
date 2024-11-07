@@ -38,32 +38,32 @@ import java.util.ResourceBundle;
  * Clase que controla los eventos de la ventana principal
  */
 public class OlimpiadaAppController implements Initializable {
-    @FXML // fx:id="btnEditar"
-    private MenuItem btnEditar; // Value injected by FXMLLoader
-
-    @FXML // fx:id="btnEliminar"
-    private MenuItem btnEliminar; // Value injected by FXMLLoader
-
-    @FXML // fx:id="cbTabla"
-    private ComboBox<String> cbTabla; // Value injected by FXMLLoader
-
-    @FXML // fx:id="filtroNombre"
-    private TextField filtroNombre; // Value injected by FXMLLoader
-
-    @FXML // fx:id="langEN"
-    private RadioMenuItem langEN; // Value injected by FXMLLoader
-
-    @FXML // fx:id="langES"
-    private RadioMenuItem langES; // Value injected by FXMLLoader
-
-    @FXML // fx:id="tabla"
-    private TableView tabla; // Value injected by FXMLLoader
-
-    @FXML // fx:id="tgIdioma"
-    private ToggleGroup tgIdioma; // Value injected by FXMLLoader
+    @FXML
+    private MenuItem btnEditar;
 
     @FXML
-    private ResourceBundle resources; // ResourceBundle injected automatically by FXML loader
+    private MenuItem btnEliminar;
+
+    @FXML
+    private ComboBox<String> cbTabla;
+
+    @FXML
+    private TextField filtroNombre;
+
+    @FXML
+    private RadioMenuItem langEN;
+
+    @FXML
+    private RadioMenuItem langES;
+
+    @FXML
+    private TableView tabla;
+
+    @FXML
+    private ToggleGroup tgIdioma;
+
+    @FXML
+    private ResourceBundle resources;
 
     private ObservableList masterData = FXCollections.observableArrayList();
     private ObservableList filteredData = FXCollections.observableArrayList();
@@ -81,7 +81,7 @@ public class OlimpiadaAppController implements Initializable {
         try {
             new ConexionBBDD();
         } catch (SQLException e) {
-            alerta(resources.getString("db.error"));
+            alerta(resources.getString("db.error") + ": " + e.getLocalizedMessage());
             Platform.exit(); // Cierra la aplicación
             return;
         }

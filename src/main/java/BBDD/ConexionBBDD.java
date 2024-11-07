@@ -32,10 +32,9 @@ public class ConexionBBDD {
         connConfig.setProperty("password", configuracion.getProperty("password"));
 
         // La conexión en sí
-        connection = DriverManager.getConnection("jdbc:mariadb://" + configuracion.getProperty("address") + ":" + configuracion.getProperty("port") + "/" + configuracion.getProperty("database") + "?serverTimezone=Europe/Madrid", connConfig);
+        connection = DriverManager.getConnection("jdbc:mariadb://" + configuracion.getProperty("address") + ":" + configuracion.getProperty("port") + "/" + configuracion.getProperty("database") + "?createDatabaseIfNotExist=true", connConfig);
         connection.setAutoCommit(true);
 
-        // Obtenemos los metadatos de la base de datos (aunque no se usen en este momento)
         DatabaseMetaData databaseMetaData = connection.getMetaData();
         connection.setAutoCommit(true);
     }
@@ -72,7 +71,7 @@ public class ConexionBBDD {
      */
     public static Properties getConfiguracion() {
         HashMap<String, String> map = new HashMap<String, String>();
-        File f = new File("configuracion.properties");
+        File f = new File("configuration.properties");
         Properties properties;
         try {
             FileInputStream configFileReader = new FileInputStream(f);

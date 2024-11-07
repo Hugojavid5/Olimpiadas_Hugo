@@ -89,7 +89,7 @@
                                 <Insets bottom="5.0" />
                             </VBox.margin>
                         </FlowPane>
-                        <Label text="%athlete.weight">
+                        <Label text="Altura">
                             <VBox.margin>
                                 <Insets top="5.0" />
                             </VBox.margin>
