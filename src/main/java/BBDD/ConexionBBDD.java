@@ -16,7 +16,7 @@ import java.util.Properties;
  * Esta clase establece y gestiona la conexión con la base de datos utilizando los parámetros definidos en un archivo de configuración.
  */
 public class ConexionBBDD {
-    private final Connection connection;
+   private final Connection connection;
 
     /**
      * Constructor de la clase que establece la conexión a la base de datos.
@@ -33,27 +33,29 @@ public class ConexionBBDD {
 
         // La conexión en sí
         connection = DriverManager.getConnection("jdbc:mariadb://" + configuracion.getProperty("address") + ":" + configuracion.getProperty("port") + "/" + configuracion.getProperty("database") + "?createDatabaseIfNotExist=true", connConfig);
-        connection.setAutoCommit(true);
 
         DatabaseMetaData databaseMetaData = connection.getMetaData();
         connection.setAutoCommit(true);
+
     }
 
     /**
      * Obtiene la conexión a la base de datos.
      *
      * @return La conexión establecida a la base de datos.
+     *
      */
     public Connection getConnection() {
         return connection;
     }
+
 
     /**
      * Cierra la conexión a la base de datos.
      *
      * @return La conexión cerrada.
      * @throws SQLException Si ocurre un error al intentar cerrar la conexión.
-     */
+    */
     public Connection closeConnection() throws SQLException {
         connection.close();
         return connection;
